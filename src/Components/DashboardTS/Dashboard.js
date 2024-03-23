@@ -22,6 +22,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import { mainListItems, secondaryListItems } from './listItems';
 import Deposits from './Deposits';
 import Orders from './Orders';
+import Footer from '../Footer';
 
 function Copyright(props) {
   return (
@@ -172,6 +173,7 @@ export default function Dashboard() {
           </Container>
         </Box> 
       </Box>
+      <Footer/>
     </ThemeProvider>
   );
 }
