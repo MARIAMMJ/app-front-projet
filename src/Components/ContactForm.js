@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Navbar from "./navbar";
 
 const FORM_ENDPOINT = "https://herotofu.com/start"; // TODO - update to the correct endpoint
 
@@ -39,10 +40,12 @@ const ContactForm = () => {
   }
 
   return (
+   
     <div>
-      <h2 style={{ textAlign: "center" }}>Contact Form</h2>
+       <Navbar/>
+      <h2 style={{ textAlign: "center" , marginTop:"110px"}}>Contact Form</h2>
       <form
-        style={{ display: "flex", flexDirection: "column", maxWidth: 400, margin: "auto" }}
+        style={{ display: "flex", flexDirection: "column", maxWidth: 400, margin: "auto" , marginTop:"50px"}}
         onSubmit={handleSubmit}
         encType="multipart/form-data"
       >

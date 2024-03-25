@@ -8,6 +8,7 @@ import {
     faFacebook,
 } from "@fortawesome/free-brands-svg-icons";
 import { faCopyright } from "@fortawesome/free-solid-svg-icons";
+import ScrollTop from "./ScrollTop";
 
 const Footer = () => {
     return (
@@ -49,6 +50,7 @@ const Footer = () => {
 
                 {false && <PrivacyModal click={true} />}
             </div>
+            <ScrollTop/>
         </footer>
     );
 };

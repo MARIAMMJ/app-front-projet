@@ -6,11 +6,17 @@ import reportWebVitals from './reportWebVitals';
 import Dashboard from './Components/DashboardTS/Dashboard';
 import ContactForm from './Components/ContactForm';
 import Footer from './Components/Footer';
+import Profile from './Components/Profile';
+import SignIn from './Components/AuthManagement/SignInComp';
+import UserProfile from './Components/Profile';
+import SignInSide from './Components/Admin/AdminSignInComp';
+import Navbar from './Components/navbar';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Dashboard/>
+    <ContactForm/>
   </React.StrictMode>
 );
 
