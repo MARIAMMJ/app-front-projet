@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Dashboard from './Components/DashboardTS/Dashboard';
+import Quiz from './Components/StudentComponents/QuizComponents/Quiz';
 import ContactForm from './Components/ContactForm';
 import Footer from './Components/Footer';
 import Profile from './Components/Profile';
