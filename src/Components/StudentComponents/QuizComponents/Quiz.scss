@@ -5,17 +5,17 @@ $accent: #de8642;
 $bg-accent: #e7e8e9;
  $disabled: #9c9c9c;
   $foreground: #2d264b;
-body{
-font-family: monospace;
-background: linear-gradient(0deg, $primary 0.03%, $accent);
-color: $foreground;
-display: flex;
-justify-content: center;
-margin: 0 auto;
-padding: 0 30px;
-height: 100vh;
+// body{
+// font-family: monospace;
+// background: linear-gradient(0deg, $primary 0.03%, $accent);
+// color: $foreground;
+// display: flex;
+// justify-content: center;
+// margin: 0 auto;
+// padding: 0 30px;
+// height: 100vh;
 
-}
+// }
 .quiz-container {
     width: 500px;
     background: $bg;
