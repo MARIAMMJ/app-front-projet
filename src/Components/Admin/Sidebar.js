@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import List from '@mui/material/List';
@@ -21,6 +21,10 @@ function Sidebar({ onSidebarClick }) {
     if (onSidebarClick) {
       onSidebarClick(item);
     }
+    // Si l'élément cliqué est "Logout", effectuez la redirection
+    if (item === 'Logout') {
+      window.location.href = '/AdminSignIn'; // Redirection vers AdminSignInComp
+    }
   };
 
   return (
@@ -33,11 +37,15 @@ function Sidebar({ onSidebarClick }) {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        position: 'fixed',
+        top: 0,
+        bottom: 0,
+        zIndex: 1000, 
+        overflowY: 'auto', 
       }}
     >
      
       <img src={"./logoissat.png"} alt="University Logo" style={{ width: 100, height: 100, marginBottom: '16px' }} />
-
       <List>
         {['Dashboard', 'Teachers', 'Students', 'Calendar', 'Payment', 'Statistics', 'Logout'].map((text, index) => (
           <ListItem 

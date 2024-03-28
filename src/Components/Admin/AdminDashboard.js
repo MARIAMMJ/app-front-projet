@@ -1,59 +1,73 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Avatar from '@mui/material/Avatar';
+import React, { useState } from 'react';
+import { AppBar, Toolbar, Typography, IconButton, Badge, Avatar, InputBase, Box, Grid } from '@mui/material';
+import { Search as SearchIcon, Notifications as NotificationsIcon } from '@mui/icons-material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Sidebar from './Sidebar';
 import ChartsAndList from './ChartsAndList';
-import SearchIcon from '@mui/icons-material/Search';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
 import TeachersTable from './TeacherDashboard';
 import StudentsPage from './StudentsPage';
 import CalendarPage from './CalendarPage';
+import AdminSignInComp from './AdminSignInComp';
+import { Text } from "@chakra-ui/react";
 
 function AdminDashboard() {
-  const [currentPage, setCurrentPage] = React.useState('Dashboard');
+  const [currentPage, setCurrentPage] = useState('Dashboard');
+  const [searchQuery, setSearchQuery] = useState('');
 
   const handleSidebarClick = (page) => {
-    if (page === 'Logout') {
-      window.location.href = '/AdminSignInComp'; 
+    if (page === 'Dashboard') {
+      window.location.href = './AdminDashboard';
     } else {
       setCurrentPage(page);
     }
   };
 
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
   return (
     <ThemeProvider theme={createTheme()}>
-      <Box
-        sx={{
-          display: 'flex',
-        }}
-      >
-        <Sidebar onSidebarClick={handleSidebarClick} />
-        <Box sx={{ flexGrow: 1, p: 3 }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-            <Typography variant="h5" gutterBottom>{new Date().toLocaleDateString()}</Typography>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <IconButton>
-                <SearchIcon />
-              </IconButton>
-              <input type="text" placeholder="Search..." style={{ marginLeft: '8px' }} />
-              <IconButton>
-                <Badge badgeContent={4} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-              <Avatar alt="Admin" src="/path/to/admin-image.jpg" sx={{ width: 40, height: 40, marginLeft: '8px' }} />
-            </Box>
+      <Box sx={{ flexGrow: 2 }}>
+        <AppBar position="static" sx={{ backgroundColor: '#3182CE' , marginTop:"-10px" , marginRight:"30px" }}>
+          <Toolbar>
+            <Grid container alignItems="center">
+              <Grid item xs={6}>
+                <Typography variant="h6" sx={{ marginLeft:"250px" }}>
+                  {new Date().toLocaleDateString()}
+                </Typography>
+              </Grid>
+              <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <IconButton color="inherit">
+                    <SearchIcon />
+                  </IconButton>
+                  <InputBase
+                    placeholder="Search..."
+                    inputProps={{ 'aria-label': 'search' }}
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                    sx={{ color: 'white' }} 
+                  />
+                  <IconButton color="inherit">
+                    <Badge badgeContent={4} color="secondary">
+                      <NotificationsIcon />
+                    </Badge>
+                  </IconButton>
+                  <Avatar alt="Admin" src="/path/to/admin-image.jpg" sx={{ width: 40, height: 40, marginLeft: '8px' }} />
+                </Box>
+              </Grid>
+            </Grid>
+          </Toolbar>
+        </AppBar>
+        <Box sx={{ display: 'flex', marginTop: '-20px' }}>
+          <Sidebar onSidebarClick={handleSidebarClick} />
+          <Box sx={{ flexGrow: 1, p: 3 }}>
+            {currentPage === 'Dashboard' && <ChartsAndList />}
+            {currentPage === 'Teachers' && <TeachersTable />}
+            {currentPage === 'Students' && <StudentsPage />}
+            {currentPage === 'Calendar' && <CalendarPage />}
           </Box>
-          {currentPage === 'Dashboard' && <ChartsAndList />}
-          {currentPage === 'Teachers' && <TeachersTable />}
-          {currentPage === 'Students' && <StudentsPage />}
-          {currentPage === 'Calendar' && <CalendarPage />}
         </Box>
       </Box>
     </ThemeProvider>

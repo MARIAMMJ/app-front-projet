@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Table from '@mui/material/Table';
@@ -11,6 +11,7 @@ import Paper from '@mui/material/Paper';
 import { Avatar, IconButton, Card, CardContent } from '@mui/material';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import AddIcon from '@mui/icons-material/Add';
+import Sidebar from './Sidebar';
 
 const absentTeachers = [
   { image: 'url_de_l_image', firstName: 'Nadhem', lastName: 'Zaaleni', subject: 'Mathematics', session: 'S1' },
@@ -49,8 +50,16 @@ function TeachersTable({ teachers }) {
 }
 
 function ChartsAndList() {
+  const [currentPage, setCurrentPage] = useState('Dashboard');
+  const handleSidebarClick = (page) => {
+    if (page === 'Dashboard') {
+      window.location.href = './AdminDashboard';
+    } else {
+      setCurrentPage(page);
+    }
+  };
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'row' ,flexGrow: 1, p: 3, marginLeft: '240px' }} onSidebarClick={handleSidebarClick}>
       {/* Charts */}
       <Box sx={{ width: '60%', mr: 2 }}>
         {/* Pie Chart */}

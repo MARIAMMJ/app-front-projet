@@ -13,6 +13,7 @@ import PaymentIcon from '@mui/icons-material/Payment';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import LogoutIcon from '@mui/icons-material/Logout';
 
+
 function StudentSidebar({ onSidebarClick }) {
   const [selectedItem, setSelectedItem] = React.useState('Dashboard');
 
@@ -40,7 +41,7 @@ function StudentSidebar({ onSidebarClick }) {
       <img src={"./logoissat.png"} alt="University Logo" style={{ width: 100, height: 100, marginBottom: '16px' }} />
 
       <List>
-        {['Dashboard', 'Emploi De Temps', 'Supports De cours', 'Quizs', 'Payment', 'Statistics', 'Logout'].map((text, index) => (
+        {['Dashboard', 'Emploi De Temps', 'Supports De cours', 'Quizs', 'Demandes', 'Statistics', 'Logout'].map((text, index) => (
           <ListItem 
             button 
             key={text} 
@@ -52,7 +53,7 @@ function StudentSidebar({ onSidebarClick }) {
               {text === 'Emploi De Temps' && <PeopleAltIcon />}
               {text === 'Supports De cours' && <SchoolIcon />}
               {text === 'Quizs' && <EventIcon />}
-              {text === 'Payment' && <PaymentIcon />}
+              {text === 'Demandes' && <PaymentIcon />}
               {text === 'Statistics' && <BarChartIcon />}
               {text === 'Logout' && <LogoutIcon />}
             </ListItemIcon>

@@ -2,17 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import Quiz from './Components/StudentComponents/QuizComponents/Quiz';
-import ContactForm from './Components/ContactForm';
-import Footer from './Components/Footer';
-import Profile from './Components/Profile';
-import StudentDashboard from './Pages/StudentDashboard';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <StudentDashboard/>
+    <App/>
   </React.StrictMode>
 );
 

@@ -16,9 +16,10 @@ import Quiz from './QuizComponents/Quiz';
 import { jsQuizz } from './QuizComponents/constants';
 import LeftSidebar from './SupportDeCoursComponents/CoursesSideBar'
 import QuizList from './QuizComponents/QuizList';
+import Demande from './Demande'
 
 
-function AdminDashboard() {
+function StudentDashboard() {
   const [currentPage, setCurrentPage] = React.useState('Dashboard');
 
   const handleSidebarClick = (page) => {
@@ -57,6 +58,8 @@ function AdminDashboard() {
           {currentPage === 'Supports De cours' && <LeftSidebar />}
 
           {currentPage === 'Quizs' && <QuizList/>}
+          {currentPage === 'Demandes' && <Demande/>}
+
 
           
 
@@ -67,4 +70,4 @@ function AdminDashboard() {
   );
 }
 
-export default AdminDashboard;
+export default StudentDashboard;
