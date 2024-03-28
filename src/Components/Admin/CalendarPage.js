@@ -1,5 +1,6 @@
 import React from 'react';
 import { Document, Page, PDFViewer, StyleSheet, Text, View } from '@react-pdf/renderer';
+import Box from '@mui/material/Box';
 
 // Styles pour le PDF
 const styles = StyleSheet.create({
@@ -70,12 +71,12 @@ const CalendarPDF = () => (
 
 const CalendarViewer = () => {
   return (
-    <div>
+    <Box sx={{ flexGrow: 1, p: 3, marginLeft: '240px' }}>
       <h1 style={{ textAlign: 'center' }}>Calendrier Universitaire</h1>
-      <PDFViewer style={{ width: '100%', height: '70vh' }}>
+      <PDFViewer style={{ width: '100%', height: '100vh' }}>
         <CalendarPDF />
       </PDFViewer>
-    </div>
+    </Box>
   );
 };
 
