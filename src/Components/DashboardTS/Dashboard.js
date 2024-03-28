@@ -23,6 +23,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 import Deposits from './Deposits';
 import Orders from './Orders';
 import Footer from '../Footer';
+import EmploiTemps from '../StudentComponents/EmploiTempsComponent'
 
 function Copyright(props) {
   return (
@@ -87,6 +88,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 const defaultTheme = createTheme();
 
 export default function Dashboard() {
+  const[currentPage , setCurrentPage] = React.useState('Accueil');
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
@@ -151,6 +153,10 @@ export default function Dashboard() {
             <Divider sx={{ my: 1 }} />
             {secondaryListItems}
           </List>
+          {currentPage === 'Acceuil' && <Dashboard/>}
+          {currentPage === 'Emploi De Temps' && <EmploiTemps/>}
+
+
         </Drawer>
         
          <Box
@@ -164,6 +170,7 @@ export default function Dashboard() {
             height: '100vh',
             overflow: 'auto',
           }}
+          
         >
           
           <Container maxWidth="lg" sx={{ mt:20, mb: 4 }}>

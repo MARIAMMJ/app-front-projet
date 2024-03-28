@@ -6,13 +6,13 @@ import Quiz from './Components/StudentComponents/QuizComponents/Quiz';
 import ContactForm from './Components/ContactForm';
 import Footer from './Components/Footer';
 import Profile from './Components/Profile';
-import AdminDashboard from './Components/Admin/AdminDashboard';
+import StudentDashboard from './Pages/StudentDashboard';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <AdminDashboard/>
+    <StudentDashboard/>
   </React.StrictMode>
 );
 

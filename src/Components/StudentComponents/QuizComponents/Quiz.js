@@ -1,7 +1,6 @@
 import "./Quiz.scss" 
 import { useState } from "react";
 import{resultInitialState}from "./constants"
-import { Prev } from "react-bootstrap/esm/PageItem";
 const Quiz =({questions}) =>{
 
    const [currentQuestion, setCurrentQuestion]= useState(0);
