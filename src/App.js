@@ -11,13 +11,19 @@ import StudentsPage from './Components/Admin/StudentsPage';
 import StudentDashboard from './Components/StudentComponents/StudentDashboardComp';
 import  SignIn  from "./Components/AuthManagement/SignInComp";
 import AccueilAuth from './Components/AccueilAuth';
+import AddStudentPage from './Components/Admin/AddStudentPage';
+import EmploisPage from './Components/Admin/emploi';
+import Profile from './Components/Profile'
+import UserProfile from './Components/Profile';
 function App() {
   return (
   <div>
     <Router>
       <Routes>
       <Route path="/" element={<Navigate to="/AccueilAuth" />} />
-
+      <Route path='/add-student' element={<AddStudentPage/>}></Route>
+      <Route path='/emploi' element={<EmploisPage/>}></Route>
+      <Route path='/profilet' element={<UserProfile />}></Route>
       <Route path='/studentspage' element={<StudentsPage/>}></Route>
       <Route path='/admindashboard' element={<AdminDashboard/>}></Route>
     <Route path='/adminsignin' element={<AdminSignIn/>}></Route>

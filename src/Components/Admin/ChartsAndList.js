@@ -8,12 +8,11 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Avatar, IconButton, Card, CardContent } from '@mui/material';
+import { Avatar, IconButton, Card, CardContent, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
 import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import AddIcon from '@mui/icons-material/Add';
-import Sidebar from './Sidebar';
 
-const absentTeachers = [
+const initialAbsentTeachers = [
   { image: 'url_de_l_image', firstName: 'Nadhem', lastName: 'Zaaleni', subject: 'Mathematics', session: 'S1' },
   { image: 'url_de_l_image', firstName: 'Ahmed', lastName: 'Maalel', subject: 'IHM', session: 'S3' },
 ];
@@ -51,6 +50,9 @@ function TeachersTable({ teachers }) {
 
 function ChartsAndList() {
   const [currentPage, setCurrentPage] = useState('Dashboard');
+  const [openPopup, setOpenPopup] = useState(false);
+  const [absentTeachers, setAbsentTeachers] = useState(initialAbsentTeachers);
+
   const handleSidebarClick = (page) => {
     if (page === 'Dashboard') {
       window.location.href = './AdminDashboard';
@@ -58,8 +60,46 @@ function ChartsAndList() {
       setCurrentPage(page);
     }
   };
+
+  const handleOpenPopup = () => {
+    setOpenPopup(true);
+  };
+
+  const handleClosePopup = () => {
+    setOpenPopup(false);
+  };
+
+  const handleConfirmAddTeacher = () => {
+    // Récupérer les valeurs des champs de la popup
+    const name = document.getElementById('name').value;
+    const lastName = document.getElementById('lastName').value;
+    const subject = document.getElementById('subject').value;
+    const session = document.getElementById('session').value;
+
+    // Vérifier si tous les champs sont remplis
+    if (name && lastName && subject && session) {
+      // Créer un nouvel objet enseignant avec les valeurs saisies
+      const newTeacher = {
+        firstName: name,
+        lastName: lastName,
+        subject: subject,
+        session: session,
+        // Vous pouvez également ajouter l'image si nécessaire
+      };
+
+      // Ajouter le nouvel enseignant à la liste des enseignants absents
+      setAbsentTeachers([...absentTeachers, newTeacher]);
+
+      // Fermer la popup
+      handleClosePopup();
+    } else {
+      // Afficher un message d'erreur si tous les champs ne sont pas remplis
+      alert('Veuillez remplir tous les champs.');
+    }
+  };
+
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'row' ,flexGrow: 1, p: 3, marginLeft: '240px' }} onSidebarClick={handleSidebarClick}>
+    <Box sx={{ display: 'flex', flexDirection: 'row', flexGrow: 1, p: 3, marginLeft: '240px' }} onSidebarClick={handleSidebarClick}>
       {/* Charts */}
       <Box sx={{ width: '60%', mr: 2 }}>
         {/* Pie Chart */}
@@ -125,7 +165,7 @@ function ChartsAndList() {
               <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold' }}>
                 List of Absent Teachers
               </Typography>
-              <IconButton>
+              <IconButton onClick={handleOpenPopup}>
                 <AddIcon />
               </IconButton>
             </Box>
@@ -133,6 +173,21 @@ function ChartsAndList() {
           </CardContent>
         </Card>
       </Box>
+
+      {/* Popup for Adding a Teacher */}
+      <Dialog open={openPopup} onClose={handleClosePopup}>
+        <DialogTitle>Add Absent Teacher</DialogTitle>
+        <DialogContent>
+          <TextField autoFocus margin="dense" id="name" label="Name" fullWidth />
+          <TextField margin="dense" id="lastName" label="Last Name" fullWidth />
+          <TextField margin="dense" id="subject" label="Subject" fullWidth />
+          <TextField margin="dense" id="session" label="Session" fullWidth />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClosePopup}>Cancel</Button>
+          <Button onClick={handleConfirmAddTeacher}>Confirm</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }
