@@ -1,3 +1,5 @@
+// AdminDashboard.jsx
+
 import React, { useState } from 'react';
 import { AppBar, Toolbar, Typography, IconButton, Badge, Avatar, InputBase, Box, Grid } from '@mui/material';
 import { Search as SearchIcon, Notifications as NotificationsIcon } from '@mui/icons-material';
@@ -9,17 +11,17 @@ import StudentsPage from './StudentsPage';
 import CalendarPage from './CalendarPage';
 import AdminSignInComp from './AdminSignInComp';
 import { Text } from "@chakra-ui/react";
+import AddStudentPage from './AddStudentPage';
+import EmploisPage from './emploi';
+import ActualitesPage from './ActualitesPage';
+import NotesPage from './NotesPage';
 
 function AdminDashboard() {
-  const [currentPage, setCurrentPage] = useState('Dashboard');
+  const [currentPage, setCurrentPage] = useState('Tableau de bord');
   const [searchQuery, setSearchQuery] = useState('');
 
   const handleSidebarClick = (page) => {
-    if (page === 'Dashboard') {
-      window.location.href = './AdminDashboard';
-    } else {
-      setCurrentPage(page);
-    }
+    setCurrentPage(page);
   };
 
   const handleSearchChange = (event) => {
@@ -43,7 +45,7 @@ function AdminDashboard() {
                     <SearchIcon />
                   </IconButton>
                   <InputBase
-                    placeholder="Search..."
+                    placeholder="Rechercher..."
                     inputProps={{ 'aria-label': 'search' }}
                     value={searchQuery}
                     onChange={handleSearchChange}
@@ -63,10 +65,15 @@ function AdminDashboard() {
         <Box sx={{ display: 'flex', marginTop: '-20px' }}>
           <Sidebar onSidebarClick={handleSidebarClick} />
           <Box sx={{ flexGrow: 1, p: 3 }}>
-            {currentPage === 'Dashboard' && <ChartsAndList />}
-            {currentPage === 'Teachers' && <TeachersTable />}
-            {currentPage === 'Students' && <StudentsPage />}
-            {currentPage === 'Calendar' && <CalendarPage />}
+            {currentPage === 'Tableau de bord' && <ChartsAndList />}
+            {currentPage === 'Enseignants' && <TeachersTable />}
+            {currentPage === 'Étudiants' && <StudentsPage setCurrentPage={setCurrentPage} />}
+            {currentPage === 'Calendrier' && <CalendarPage />}
+            {currentPage === 'Emploi du temps' && <EmploisPage />}
+            {currentPage === 'Notes' && <NotesPage />}
+            {currentPage === 'Actualités' && <ActualitesPage />}
+
+
           </Box>
         </Box>
       </Box>

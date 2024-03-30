@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Typography, TextField, Grid, Button, Avatar, Checkbox, MenuItem, FormControlLabel, FormControl } from '@mui/material';
+import { Typography, TextField, Grid, Button, Avatar, Checkbox, MenuItem, FormControlLabel } from '@mui/material';
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 function AddTeacher({ onTeacherAdded }) {
   const [nom, setNom] = useState('');
@@ -16,7 +16,7 @@ function AddTeacher({ onTeacherAdded }) {
   const [role, setRole] = useState('');
   const [chefDepartement, setChefDepartement] = useState('');
   const [photo, setPhoto] = useState(null);
-  const [estChefDepartement, setEstChefDepartement] = useState(false); // Utilisation d'un booléen pour la checkbox
+  const [estChefDepartement, setEstChefDepartement] = useState(false); 
 
   const handleAddTeacher = () => {
     const newTeacherInfo = {
@@ -33,7 +33,7 @@ function AddTeacher({ onTeacherAdded }) {
       chefDepartement,
       photo
     };
-    onTeacherAdded(newTeacherInfo); // Appeler la fonction de rappel pour ajouter l'enseignant
+    onTeacherAdded(newTeacherInfo); 
   };
 
   const handlePhotoChange = (e) => {
@@ -47,9 +47,19 @@ function AddTeacher({ onTeacherAdded }) {
     }
   };
 
+  const handleGoBack = () => {
+    window.history.back(); // Rediriger l'utilisateur vers la page précédente
+  };
+
   return (
-    <div style={{ padding: '20px', marginTop: '-90px', textAlign: 'center' }}>
-      <Typography variant="h4" gutterBottom>Ajouter Enseignant</Typography>
+    <div style={{ padding: '20px', marginTop: '-10px', textAlign: 'center' }}>
+      <Typography variant="h4" gutterBottom style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
+        <Button startIcon={<ArrowBackIcon />} color="primary" onClick={handleGoBack}>
+          Retour
+        </Button>
+        <span style={{ marginLeft:'200px' }}></span> 
+        <Typography variant="h4">Ajouter Enseignant</Typography>
+      </Typography>
       <Grid container spacing={2} alignItems="center">
         <Grid item xs={4} sx={{ marginLeft: '10px', marginTop: '-20px' }}>
           <input
@@ -142,21 +152,21 @@ function AddTeacher({ onTeacherAdded }) {
           />
         </Grid>
         <Grid item xs={6} sm={3}>
-    <TextField
-      fullWidth
-      select
-      label="Rôle"
-      variant="outlined"
-      defaultValue=""
-      size="small"
-      value={role}
-      onChange={(e) => setRole(e.target.value)}
-    >
-      <MenuItem value="professeur">Professeur</MenuItem>
-      <MenuItem value="assistant">Assistant</MenuItem>
-      <MenuItem value="chercheur">Chercheur</MenuItem>
-    </TextField>
-  </Grid>
+          <TextField
+            fullWidth
+            select
+            label="Rôle"
+            variant="outlined"
+            defaultValue=""
+            size="small"
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+          >
+            <MenuItem value="professeur">Professeur</MenuItem>
+            <MenuItem value="assistant">Assistant</MenuItem>
+            <MenuItem value="chercheur">Chercheur</MenuItem>
+          </TextField>
+        </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             fullWidth
@@ -183,18 +193,18 @@ function AddTeacher({ onTeacherAdded }) {
             onChange={(e) => setAdresse(e.target.value)}
           />
         </Grid>
-  <Grid item xs={12} sm={6}>
-    <FormControlLabel
-      control={
-        <Checkbox
-          checked={estChefDepartement}
-          onChange={(e) => setEstChefDepartement(e.target.checked)}
-          color="primary"
-        />
-      }
-      label="Ajouter comme chef de département"
-    />
-  </Grid>
+        <Grid item xs={12} sm={6}>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={estChefDepartement}
+                onChange={(e) => setEstChefDepartement(e.target.checked)}
+                color="primary"
+              />
+            }
+            label="Ajouter comme chef de département"
+          />
+        </Grid>
         <Grid item xs={12} sx={{ marginTop: '20px' }}>
           <Button variant="contained" color="primary" style={{ width: '200px' }} onClick={handleAddTeacher}>
             Ajouter
@@ -206,4 +216,3 @@ function AddTeacher({ onTeacherAdded }) {
 }
 
 export default AddTeacher;
-
