@@ -9,18 +9,16 @@ import SearchIcon from '@mui/icons-material/Search';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import IconButton from '@mui/material/IconButton';
 import Badge from '@mui/material/Badge';
-import StudentSidebar from './StudentSideBar'
-import AnnonceE from '../DashboardTS/Annonce';
-import EmploiTemps from './EmploiTempsComponent';
-import Quiz from './QuizComponents/Quiz';
-import { jsQuizz } from './QuizComponents/constants';
-import LeftSidebar from './SupportDeCoursComponents/CoursesSideBar'
-import QuizList from './QuizComponents/QuizList';
-import Demande from './Demande'
-import CompteRendu from './CompteRendu';
+//import StudentSidebar from './StudentSideBar'
+
+//import QuizList from './QuizComponents/QuizList';
+import Demande from '../StudentComponents/Demande'
+import TeacherSidebar from './TeacherSideBar';
+import AddCompteRendu from './AddCompteRendu';
+//import CompteRendu from './CompteRendu';
 
 
-function StudentDashboard() {
+function TeacherDashboard() {
   const [currentPage, setCurrentPage] = React.useState('Dashboard');
 
   const handleSidebarClick = (page) => {
@@ -37,7 +35,7 @@ function StudentDashboard() {
           display: 'flex',
         }}
       >
-        <StudentSidebar onSidebarClick={handleSidebarClick} />
+        <TeacherSidebar onSidebarClick={handleSidebarClick} />
         <Box sx={{ flexGrow: 1, p: 3 }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb:2,backgroundColor:'#63B3ED', minHeight: '70px' }}>
             <Typography variant="h5" gutterBottom>{new Date().toLocaleDateString()}</Typography>
@@ -54,13 +52,12 @@ function StudentDashboard() {
               <Avatar alt="Admin" src="/path/to/admin-image.jpg" sx={{ width: 40, height: 40, marginLeft: '8px' }} />
             </Box>
           </Box>
-          {currentPage === 'Dashboard' && <AnnonceE />}
-          {currentPage === 'Emploi De Temps' && <EmploiTemps />}
-          {currentPage === 'Supports De cours' && <LeftSidebar />}
           
-          {currentPage === 'Quizs' && <QuizList/>}
+          
           {currentPage === 'Demandes' && <Demande/>}
-          {currentPage === 'Comptes Rendus' && <CompteRendu/>}
+          {currentPage === 'Comptes Rendus' && <AddCompteRendu/>}
+
+          
 
 
 
@@ -73,4 +70,4 @@ function StudentDashboard() {
   );
 }
 
-export default StudentDashboard;
+export default TeacherDashboard;

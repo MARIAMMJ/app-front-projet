@@ -11,6 +11,7 @@ import StudentsPage from './Components/Admin/StudentsPage';
 import StudentDashboard from './Components/StudentComponents/StudentDashboardComp';
 import  SignIn  from "./Components/AuthManagement/SignInComp";
 import AccueilAuth from './Components/AccueilAuth';
+import TeacherDashboard from './Components/TeacherComponents/TeacherDashboard';
 function App() {
   return (
   <div>
@@ -24,6 +25,9 @@ function App() {
     <Route path='/StudentDashboard' element={<StudentDashboard/>}></Route>
     <Route path='/StudentSignIn' element={<SignIn/>}></Route>
     <Route path='/AccueilAuth' element={<AccueilAuth/>}></Route>
+    <Route path='/TeacherDashboard' element={<TeacherDashboard/>}></Route>
+
+    
 
 
     <Route path='/Home' element={<Home/>}></Route>

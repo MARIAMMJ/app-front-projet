@@ -14,7 +14,7 @@ import BarChartIcon from '@mui/icons-material/BarChart';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 
-function StudentSidebar({ onSidebarClick }) {
+function TeacherSidebar({ onSidebarClick }) {
   const [selectedItem, setSelectedItem] = React.useState('Dashboard');
 
   const handleItemClick = (item) => {
@@ -65,4 +65,4 @@ function StudentSidebar({ onSidebarClick }) {
   );
 }
 
-export default StudentSidebar;
+export default TeacherSidebar;

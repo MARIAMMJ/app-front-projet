@@ -14,6 +14,7 @@ function AccueilAuth() {
   const handleTeacherLogin = () => {
     // Logique de connexion pour l'enseignant
     console.log("Connexion en tant qu'enseignant");
+    navigate('/TeacherDashboard');
   };
 
   const handleStudentLogin = () => {
