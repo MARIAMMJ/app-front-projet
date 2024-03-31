@@ -15,6 +15,7 @@ import Badge from '@mui/material/Badge';
 import Demande from '../StudentComponents/Demande'
 import TeacherSidebar from './TeacherSideBar';
 import AddCompteRendu from './AddCompteRendu';
+import AddQuiz from './AddQuiz'
 //import CompteRendu from './CompteRendu';
 
 
@@ -56,6 +57,8 @@ function TeacherDashboard() {
           
           {currentPage === 'Demandes' && <Demande/>}
           {currentPage === 'Comptes Rendus' && <AddCompteRendu/>}
+          {currentPage === 'Quizs' && <AddQuiz/>}
+
 
           
 
