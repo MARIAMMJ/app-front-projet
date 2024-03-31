@@ -1,14 +1,6 @@
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Avatar from '@mui/material/Avatar';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import SearchIcon from '@mui/icons-material/Search';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
+import { Search as SearchIcon, Notifications as NotificationsIcon } from '@mui/icons-material';
+import { AppBar, Toolbar, Typography, IconButton, Badge, Avatar, InputBase, Box, Grid } from '@mui/material';
 //import StudentSidebar from './StudentSideBar'
 
 //import QuizList from './QuizComponents/QuizList';
@@ -20,6 +12,8 @@ import AddCompteRendu from './AddCompteRendu';
 
 function TeacherDashboard() {
   const [currentPage, setCurrentPage] = React.useState('Dashboard');
+  const [searchQuery, setSearchQuery] = React.useState('');
+
 
   const handleSidebarClick = (page) => {
     if (page === 'Logout') {
@@ -27,6 +21,9 @@ function TeacherDashboard() {
     } else {
       setCurrentPage(page);
     }
+  };
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
   };
 
   return (
@@ -36,27 +33,45 @@ function TeacherDashboard() {
         }}
       >
         <TeacherSidebar onSidebarClick={handleSidebarClick} />
-        <Box sx={{ flexGrow: 1, p: 3 }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb:2,backgroundColor:'#63B3ED', minHeight: '70px' }}>
-            <Typography variant="h5" gutterBottom>{new Date().toLocaleDateString()}</Typography>
-            <Box sx={{ display: 'flex', alignItems: 'center' ,padding:'200'}}>
-              <IconButton>
-                <SearchIcon />
-              </IconButton>
-              <input type="text" placeholder="Search..." style={{ marginLeft: '8px' }} />
-              <IconButton>
-                <Badge badgeContent={4} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-              <Avatar alt="Admin" src="/path/to/admin-image.jpg" sx={{ width: 40, height: 40, marginLeft: '8px' }} />
-            </Box>
-          </Box>
+        <Box sx={{ flexGrow: 1 }}>
+        <AppBar position="static" sx={{ backgroundColor: '#3182CE' , marginTop:"-10px" , marginRight:"30px" }}>
+          <Toolbar>
+            <Grid container alignItems="center">
+              <Grid item xs={6}>
+                <Typography variant="h6" sx={{ marginLeft:"250px" }}>
+                  {new Date().toLocaleDateString()}
+                </Typography>
+              </Grid>
+              <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <IconButton color="inherit">
+                    <SearchIcon />
+                  </IconButton>
+                  <InputBase
+                    placeholder="Rechercher..."
+                    inputProps={{ 'aria-label': 'search' }}
+                    value={searchQuery}
+                    onChange={handleSearchChange}
+                    sx={{ color: 'white' }} 
+                  />
+                  <IconButton color="inherit">
+                    <Badge badgeContent={4} color="secondary">
+                      <NotificationsIcon />
+                    </Badge>
+                  </IconButton>
+                  <Avatar alt="Teacher" src="/path/to/teacher-image.jpg" sx={{ width: 40, height: 40, marginLeft: '8px' }} />
+                </Box>
+              </Grid>
+            </Grid>
+          </Toolbar>
+        </AppBar>
           
           
+         
+
           {currentPage === 'Demandes' && <Demande/>}
           {currentPage === 'Comptes Rendus' && <AddCompteRendu/>}
-
+          
           
 
 
