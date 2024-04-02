@@ -21,6 +21,7 @@ export default function UserProfile() {
     phoneNumber: '27631968',
     program: 'FI-A2-GL',
     group: 'Group 4',
+    password: 'password123', // Ajout du champ de mot de passe
   });
 
   const [avatarFile, setAvatarFile] = useLocalStorage('avatarFile', null);
@@ -33,7 +34,7 @@ export default function UserProfile() {
 
   const handleSave = () => {
     setEditingField(null);
-    // Save changes
+    // Sauvegarder les modifications
     localStorage.setItem('userData', JSON.stringify(userData));
   };
 
@@ -158,6 +159,26 @@ export default function UserProfile() {
               autoComplete="group"
               value={userData.group}
               onChange={handleChange}
+            />
+            {/* Champ de mot de passe modifiable */}
+            <TextField
+              margin="normal"
+              fullWidth
+              disabled={editingField !== 'password'}
+              id="password"
+              label="Password"
+              name="password"
+              type="password"
+              autoComplete="current-password"
+              value={userData.password}
+              onChange={handleChange}
+              InputProps={{
+                endAdornment: (
+                  <IconButton onClick={() => handleEdit('password')}>
+                    <EditIcon />
+                  </IconButton>
+                ),
+              }}
             />
             <Button
               type="submit"

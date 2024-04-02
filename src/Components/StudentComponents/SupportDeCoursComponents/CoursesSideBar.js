@@ -67,7 +67,7 @@ function LeftSidebar() {
 
   return (
     <Box display="flex" justifyContent="left" alignItems="center">
-      <Box width="50%">
+      <Box width="40%">
         <Tabs value={selectedSemester} onChange={handleSemesterChange}>
           <Tab label="Semestre 1" value="semestre1" />
           <Tab label="Semestre 2" value="semestre2" />
@@ -91,7 +91,7 @@ function LeftSidebar() {
         </Box>
       </Box>
       {selectedMatiere && (
-        <Box width="50%" mt={2} ml={2} sx={{ border: '1px solid #ccc', marginTop: '26px', maxHeight: 'calc(100vh - 150px)', overflowY: 'auto' }}>
+        <Box width="50%" mt={2} ml={2} sx={{ border: '1px solid #ccc', marginTop: '30px', maxHeight: 'calc(100vh - 150px)', overflowY: 'auto' }}>
           <Typography variant="h6" align="center"  sx={{ backgroundColor: '#E2E8F0', padding:'8px' }}>Cours disponibles pour {mockData[selectedSemester].matieres.find(m => m.id === selectedMatiere).name}</Typography>
           <Divider orientation="vertical" flexItem />
           <CourseList courses={mockData[selectedSemester].cours.filter(course => course.matiereId === selectedMatiere)} />

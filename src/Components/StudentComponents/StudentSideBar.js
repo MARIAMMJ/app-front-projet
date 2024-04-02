@@ -6,11 +6,11 @@ import ListItem from '@mui/material/ListItem';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import SchoolIcon from '@mui/icons-material/School'; 
-import EventIcon from '@mui/icons-material/Event';
-import PaymentIcon from '@mui/icons-material/Payment';
-import BarChartIcon from '@mui/icons-material/BarChart';
+import ScheduleIcon from '@mui/icons-material/Schedule';
+import MenuBookIcon from '@mui/icons-material/MenuBook'; // Import de l'icône MenuBook
+import QuestionAnswerIcon from '@mui/icons-material/QuestionAnswer';
+import HelpIcon from '@mui/icons-material/Help';
+import DescriptionIcon from '@mui/icons-material/Description';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 
@@ -50,11 +50,11 @@ function StudentSidebar({ onSidebarClick }) {
           >
             <ListItemIcon sx={{ color: selectedItem === text ? 'primary.contrastText' : 'inherit' }}>
               {text === 'Dashboard' && <DashboardIcon />}
-              {text === 'Emploi De Temps' && <PeopleAltIcon />}
-              {text === 'Supports De cours' && <SchoolIcon />}
-              {text === 'Quizs' && <EventIcon />}
-              {text === 'Demandes' && <PaymentIcon />}
-              {text === 'Comptes Rendus' && <BarChartIcon />}
+              {text === 'Emploi De Temps' && <ScheduleIcon />}
+              {text === 'Supports De cours' && <MenuBookIcon />} 
+              {text === 'Quizs' && <QuestionAnswerIcon />}
+              {text === 'Demandes' && <HelpIcon />}
+              {text === 'Comptes Rendus' && <DescriptionIcon />}
               {text === 'Logout' && <LogoutIcon />}
             </ListItemIcon>
             <ListItemText primary={text} sx={{ color: selectedItem === text ? 'primary.contrastText' : 'inherit' }} />

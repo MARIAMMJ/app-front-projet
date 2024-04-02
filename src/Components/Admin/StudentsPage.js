@@ -223,6 +223,14 @@ function StudentsPage() {
       value={editedStudent?.groupe}
       onChange={(e) => setEditedStudent({ ...editedStudent, groupe: e.target.value })}
     />
+    <TextField
+      margin="dense"
+      label="Mot de passe"
+      type="password"
+      fullWidth
+      value={editedStudent?.password}
+      onChange={(e) => setEditedStudent({ ...editedStudent, password: e.target.value })}
+    />
   </DialogContent>
   <DialogActions>
     <Button onClick={handleCloseEditDialog} color="primary">

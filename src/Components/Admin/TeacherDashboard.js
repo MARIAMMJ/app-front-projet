@@ -58,8 +58,10 @@ function TeacherDashboard() {
   const [selectedTeacherDetails, setSelectedTeacherDetails] = useState(null);
   const [editedPhoneNumber, setEditedPhoneNumber] = useState('');
   const [editedEmail, setEditedEmail] = useState('');
+  const [editedPassword, setEditedPassword] = useState(''); // Nouvel état pour le mot de passe
   const [isEditingPhoneNumber, setIsEditingPhoneNumber] = useState(false);
   const [isEditingEmail, setIsEditingEmail] = useState(false);
+  const [isEditingPassword, setIsEditingPassword] = useState(false); // Nouvel état pour activer/désactiver la modification du mot de passe
 
   const handleAddTeacherClick = () => {
     setIsAddingTeacher(true);
@@ -95,12 +97,14 @@ function TeacherDashboard() {
     setOpenTeacherDetails(true);
     setEditedPhoneNumber(teacher.details.phoneNumber);
     setEditedEmail(teacher.details.email);
+    setEditedPassword(''); // Réinitialiser le champ de mot de passe lors de l'ouverture des détails de l'enseignant
   };
 
   const handleCloseTeacherDetails = () => {
     setOpenTeacherDetails(false);
     setIsEditingPhoneNumber(false);
     setIsEditingEmail(false);
+    setIsEditingPassword(false);
   };
 
   const handlePhoneNumberChange = (event) => {
@@ -111,14 +115,19 @@ function TeacherDashboard() {
     setEditedEmail(event.target.value);
   };
 
+  const handlePasswordChange = (event) => {
+    setEditedPassword(event.target.value);
+  };
+
   const handleSaveChanges = () => {
-    // Mettre à jour le numéro de téléphone et l'e-mail dans les détails de l'enseignant
+    // Mettre à jour le numéro de téléphone, l'e-mail et le mot de passe dans les détails de l'enseignant
     const updatedTeacherDetails = {
       ...selectedTeacherDetails,
       details: {
         ...selectedTeacherDetails.details,
         phoneNumber: editedPhoneNumber,
         email: editedEmail,
+        password: editedPassword, // Mettre à jour le mot de passe
       },
     };
     // Mettre à jour les détails de l'enseignant dans la liste des enseignants
@@ -133,6 +142,7 @@ function TeacherDashboard() {
     setOpenTeacherDetails(false);
     setIsEditingPhoneNumber(false);
     setIsEditingEmail(false);
+    setIsEditingPassword(false);
   };
 
   const uniqueSubjects = [...new Set(teachers.map((teacher) => teacher.subject))];
@@ -217,7 +227,8 @@ function TeacherDashboard() {
           <Typography variant="body2" gutterBottom align="center">Date de rejoint: {selectedTeacherDetails?.dateJoined}</Typography>
           <Typography variant="body2" gutterBottom align="center">Date de naissance: {selectedTeacherDetails?.details?.birthDate}</Typography>
           {isEditingPhoneNumber ? (
-            <TextField
+            <TextField 
+            sx={{ textAlign: 'center' }} 
               label="Numéro de téléphone"
               fullWidth
               value={editedPhoneNumber}
@@ -244,6 +255,23 @@ function TeacherDashboard() {
             <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
               <Typography variant="body2" gutterBottom align="center">Adresse email: {selectedTeacherDetails?.details?.email}</Typography>
               <IconButton aria-label="Modifier" onClick={() => setIsEditingEmail(true)}>
+                <EditIcon fontSize="small" />
+              </IconButton>
+            </div>
+          )}
+          {isEditingPassword ? (
+            <TextField
+             textAlign= 'center'  
+              label="Mot de passe"
+              fullWidth
+              value={editedPassword}
+              onChange={handlePasswordChange}
+              style={{ marginBottom: '10px' }}
+            />
+          ) : (
+            <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+              <Typography variant="body2" gutterBottom align="center">Mot de passe: ********</Typography>
+              <IconButton aria-label="Modifier" onClick={() => setIsEditingPassword(true)}>
                 <EditIcon fontSize="small" />
               </IconButton>
             </div>

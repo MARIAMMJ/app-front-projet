@@ -1,14 +1,4 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Avatar from '@mui/material/Avatar';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import SearchIcon from '@mui/icons-material/Search';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
+import React, { useState } from 'react';
 import StudentSidebar from './StudentSideBar'
 import AnnonceE from '../DashboardTS/Annonce';
 import EmploiTemps from './EmploiTempsComponent';
@@ -18,10 +8,15 @@ import LeftSidebar from './SupportDeCoursComponents/CoursesSideBar'
 import QuizList from './QuizComponents/QuizList';
 import Demande from './Demande'
 import CompteRendu from './CompteRendu';
+import { AppBar, Toolbar, Typography, IconButton, Badge, Avatar, InputBase, Box, Grid } from '@mui/material';
+import { Search as SearchIcon, Notifications as NotificationsIcon } from '@mui/icons-material';
+
 
 
 function StudentDashboard() {
   const [currentPage, setCurrentPage] = React.useState('Dashboard');
+  const [searchQuery, setSearchQuery] = useState('');
+
 
   const handleSidebarClick = (page) => {
     if (page === 'Logout') {
@@ -29,6 +24,9 @@ function StudentDashboard() {
     } else {
       setCurrentPage(page);
     }
+  };
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
   };
 
   return (
@@ -38,22 +36,28 @@ function StudentDashboard() {
         }}
       >
         <StudentSidebar onSidebarClick={handleSidebarClick} />
-        <Box sx={{ flexGrow: 1, p: 3 }}>
-          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb:2,backgroundColor:'#63B3ED', minHeight: '70px' }}>
-            <Typography variant="h5" gutterBottom>{new Date().toLocaleDateString()}</Typography>
-            <Box sx={{ display: 'flex', alignItems: 'center' ,padding:'200'}}>
-              <IconButton>
-                <SearchIcon />
-              </IconButton>
-              <input type="text" placeholder="Search..." style={{ marginLeft: '8px' }} />
-              <IconButton>
-                <Badge badgeContent={4} color="secondary">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-              <Avatar alt="Admin" src="/path/to/admin-image.jpg" sx={{ width: 40, height: 40, marginLeft: '8px' }} />
-            </Box>
-          </Box>
+        <Box sx={{ flexGrow: 1}}>
+        <AppBar position="static" sx={{ backgroundColor: '#3182CE' , marginTop:"-10px" , marginRight:"30px" }}>
+          <Toolbar>
+            <Grid container alignItems="center">
+              <Grid item xs={6}>
+                <Typography variant="h6" sx={{ marginLeft:"250px" }}>
+                  {new Date().toLocaleDateString()}
+                </Typography>
+              </Grid>
+              <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <IconButton color="inherit">
+                    <Badge badgeContent={4} color="secondary">
+                      <NotificationsIcon />
+                    </Badge>
+                  </IconButton>
+                  <Avatar alt="Admin" src="/path/to/admin-image.jpg" sx={{ width: 40, height: 40, marginLeft: '8px' }} />
+                </Box>
+              </Grid>
+            </Grid>
+          </Toolbar>
+        </AppBar>
           {currentPage === 'Dashboard' && <AnnonceE />}
           {currentPage === 'Emploi De Temps' && <EmploiTemps />}
           {currentPage === 'Supports De cours' && <LeftSidebar />}

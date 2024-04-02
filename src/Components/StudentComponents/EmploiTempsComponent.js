@@ -30,6 +30,12 @@ const styles = StyleSheet.create({
   eventDate: {
     fontSize: 12,
   },
+  weekLabel: {
+    position: 'absolute',
+    top: 20,
+    right: 20,
+    fontSize: 12,
+  },
 });
 
 // Exemples d'événements pour chaque semestre
@@ -59,10 +65,11 @@ const renderEvents = (events) => (
 );
 
 // Fonction pour générer le calendrier universitaire sous forme de PDF
-const CalendarPDF = () => (
+const CalendarPDF = ({ weekLabel }) => (
   <Document>
     <Page size="A4" style={styles.page}>
-      <Text style={styles.title}>Calendrier Universitaire 2024-2025</Text>
+      <Text style={styles.weekLabel}>{weekLabel}</Text>
+      <Text style={styles.title}>Emploi du temps</Text>
     </Page>
   </Document>
 );
@@ -70,9 +77,9 @@ const CalendarPDF = () => (
 const EmploiTemps = () => {
   return (
     <div>
-      <h1 style={{ textAlign: 'center' }}>Calendrier Universitaire</h1>
+      <h1 style={{ textAlign: 'center' }}>Emploi du temps</h1>
       <PDFViewer style={{ width: '100%', height: '70vh' }}>
-        <CalendarPDF />
+        <CalendarPDF weekLabel="Semaine de ..." />
       </PDFViewer>
     </div>
   );
