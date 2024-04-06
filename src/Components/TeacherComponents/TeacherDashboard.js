@@ -8,6 +8,9 @@ import Demande from '../StudentComponents/Demande'
 import TeacherSidebar from './TeacherSideBar';
 import AddCompteRendu from './AddCompteRendu';
 import AddQuiz from './AddQuiz'
+import AnnonceEns from './AnnonceEns';
+import TeacherEmploi from './teacheremploi';
+import SupportCours from './TeacherSupportDeCours';
 //import CompteRendu from './CompteRendu';
 
 
@@ -45,21 +48,6 @@ function TeacherDashboard() {
               </Grid>
               <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <IconButton color="inherit">
-                    <SearchIcon />
-                  </IconButton>
-                  <InputBase
-                    placeholder="Rechercher..."
-                    inputProps={{ 'aria-label': 'search' }}
-                    value={searchQuery}
-                    onChange={handleSearchChange}
-                    sx={{ color: 'white' }} 
-                  />
-                  <IconButton color="inherit">
-                    <Badge badgeContent={4} color="secondary">
-                      <NotificationsIcon />
-                    </Badge>
-                  </IconButton>
                   <Avatar alt="Teacher" src="/path/to/teacher-image.jpg" sx={{ width: 40, height: 40, marginLeft: '8px' }} />
                 </Box>
               </Grid>
@@ -69,16 +57,15 @@ function TeacherDashboard() {
           
           
          
-
+          {currentPage === 'Dashboard' && <AnnonceEns/>}
+          {currentPage === 'Emploi De Temps' && <TeacherEmploi/>}
           {currentPage === 'Demandes' && <Demande/>}
           {currentPage === 'Comptes Rendus' && <AddCompteRendu/>}
-<<<<<<< HEAD
+          {currentPage === 'Supports De cours' && <SupportCours/>}
           {currentPage === 'Quizs' && <AddQuiz/>}
 
 
-=======
           
->>>>>>> 1639496c6333f84aef094dd9443fd57d198aa0c7
           
 
 

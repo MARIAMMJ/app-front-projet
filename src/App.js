@@ -12,10 +12,7 @@ import StudentDashboard from './Components/StudentComponents/StudentDashboardCom
 import  SignIn  from "./Components/AuthManagement/SignInComp";
 import AccueilAuth from './Components/AccueilAuth';
 import TeacherDashboard from './Components/TeacherComponents/TeacherDashboard';
-<<<<<<< HEAD
 
-=======
->>>>>>> 1639496c6333f84aef094dd9443fd57d198aa0c7
 import AddStudentPage from './Components/Admin/AddStudentPage';
 import EmploisPage from './Components/Admin/emploi';
 import Profile from './Components/Profile'
