@@ -15,10 +15,14 @@ import AddStudentPage from './AddStudentPage';
 import EmploisPage from './emploi';
 import ActualitesPage from './ActualitesPage';
 import NotesPage from './NotesPage';
+import { useNavigate } from 'react-router-dom';
+
 
 function AdminDashboard() {
   const [currentPage, setCurrentPage] = useState('Tableau de bord');
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
+
 
   const handleSidebarClick = (page) => {
     setCurrentPage(page);
@@ -27,6 +31,13 @@ function AdminDashboard() {
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
+
+  const handleProfile = () => {
+    navigate('/Profil');
+    console.log("profile");
+  };
+
+  
 
   return (
     <ThemeProvider theme={createTheme()}>
@@ -56,7 +67,9 @@ function AdminDashboard() {
                       <NotificationsIcon />
                     </Badge>
                   </IconButton>
+                  <div onClick={handleProfile}>
                   <Avatar alt="Admin" src="/path/to/admin-image.jpg" sx={{ width: 40, height: 40, marginLeft: '8px' }} />
+                  </div>
                 </Box>
               </Grid>
             </Grid>

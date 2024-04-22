@@ -1,9 +1,7 @@
 import * as React from 'react';
 import { Search as SearchIcon, Notifications as NotificationsIcon } from '@mui/icons-material';
 import { AppBar, Toolbar, Typography, IconButton, Badge, Avatar, InputBase, Box, Grid } from '@mui/material';
-//import StudentSidebar from './StudentSideBar'
-
-//import QuizList from './QuizComponents/QuizList';
+import Cookies from 'js-cookie'; 
 import Demande from '../StudentComponents/Demande'
 import TeacherSidebar from './TeacherSideBar';
 import AddCompteRendu from './AddCompteRendu';
@@ -11,24 +9,42 @@ import AddQuiz from './AddQuiz'
 import AnnonceEns from './AnnonceEns';
 import TeacherEmploi from './teacheremploi';
 import SupportCours from './TeacherSupportDeCours';
-//import CompteRendu from './CompteRendu';
+import { useNavigate } from 'react-router-dom';
+
 
 
 function TeacherDashboard() {
   const [currentPage, setCurrentPage] = React.useState('Dashboard');
   const [searchQuery, setSearchQuery] = React.useState('');
+  const navigate = useNavigate();
 
 
+  const isLoggedIn = Cookies.get('isLoggedIn') === 'true'; 
   const handleSidebarClick = (page) => {
     if (page === 'Logout') {
-      window.location.href = '/AdminSignInComp'; 
+      Cookies.remove('isLoggedIn'); 
+      window.location.href = '/SignIn'; 
     } else {
       setCurrentPage(page);
     }
   };
+
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
+
+  const handleProfile = () => {
+    navigate('/Profil');
+    console.log("profile");
+  };
+
+  const handleEmploi = () => {
+    navigate('/teacheremploi');
+  };
+  if (!isLoggedIn) {
+    window.location.href = '/SignIn'; 
+    return null;
+  }
 
   return (
       <Box
@@ -48,13 +64,14 @@ function TeacherDashboard() {
               </Grid>
               <Grid item xs={6} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <div onClick={handleProfile}>
                   <Avatar alt="Teacher" src="/path/to/teacher-image.jpg" sx={{ width: 40, height: 40, marginLeft: '8px' }} />
+                  </div>
                 </Box>
               </Grid>
             </Grid>
           </Toolbar>
         </AppBar>
-          
           
          
           {currentPage === 'Dashboard' && <AnnonceEns/>}
@@ -63,18 +80,7 @@ function TeacherDashboard() {
           {currentPage === 'Comptes Rendus' && <AddCompteRendu/>}
           {currentPage === 'Supports De cours' && <SupportCours/>}
           {currentPage === 'Quizs' && <AddQuiz/>}
-
-
-          
-          
-
-
-
-          
-
-
-
-         </Box>
+        </Box>
       </Box>
   );
 }

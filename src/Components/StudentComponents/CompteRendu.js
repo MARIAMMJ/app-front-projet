@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Box, Typography, Tabs, Tab, List, ListItem, ListItemText, Divider, IconButton, Button, Dialog, DialogTitle, DialogContent, DialogActions, TextField, Grid } from '@mui/material';
-import { CloudUpload as CloudUploadIcon, InsertDriveFile as InsertDriveFileIcon, Delete as DeleteIcon } from '@mui/icons-material';
+import { CloudUpload as CloudUploadIcon, InsertDriveFile as InsertDriveFileIcon, Delete as DeleteIcon, GetApp as GetAppIcon } from '@mui/icons-material';
 
 const mockData = {
   semestre1: {
@@ -10,12 +10,14 @@ const mockData = {
         title: 'Compte Rendu Maths 1',
         date: '2024-04-01',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        pdfLink: 'lien-vers-le-pdf-1'
       },
       {
         id: 2,
         title: 'Compte Rendu Maths 2',
         date: '2024-03-31',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        pdfLink: 'lien-vers-le-pdf-2'
       },
     ],
     Physique: [
@@ -24,6 +26,7 @@ const mockData = {
         title: 'Compte Rendu Physique 1',
         date: '2024-04-02',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        pdfLink: 'lien-vers-le-pdf-3'
       },
     ],
     Chimie: [],
@@ -35,12 +38,14 @@ const mockData = {
         title: 'Compte Rendu Informatique 1',
         date: '2024-04-01',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        pdfLink: 'lien-vers-le-pdf-4'
       },
       {
         id: 5,
         title: 'Compte Rendu Informatique 2',
         date: '2024-03-31',
         description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+        pdfLink: 'lien-vers-le-pdf-5'
       },
     ],
     Biologie: [],
@@ -126,7 +131,10 @@ function CompteRenduList() {
                 <Typography color="text.secondary" gutterBottom>
                   Description: {compteRendu.description}
                 </Typography>
-                <Button onClick={handleOpen} variant="contained" startIcon={<CloudUploadIcon />}>
+                <Button startIcon={<GetAppIcon />} href={compteRendu.pdfLink} download>
+                  Télécharger PDF
+                </Button>
+                <Button onClick={handleOpen} variant="contained" sx={{marginLeft:"20px"}} startIcon={<CloudUploadIcon />}>
                   Déposer
                 </Button>
               </Box>

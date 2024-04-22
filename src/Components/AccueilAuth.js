@@ -82,6 +82,11 @@ function AccueilAuth() {
     console.log("Connexion en tant qu'administrateur");
   };
 
+  const handleContact = () => {
+    navigate('/contact');
+    console.log("Contact");
+  };
+
   const handleTeacherLogin = () => {
     console.log("Connexion en tant qu'enseignant");
     navigate('/TeacherDashboard');
@@ -117,7 +122,7 @@ function AccueilAuth() {
             <a href="/" style={linkStyle}>Issatso+</a>
           </Typography>
 
-          <Button color="#2C5282" className={classes.button} onClick={() => console.log("Contactez-nous")}>
+          <Button color="#2C5282" className={classes.button} onClick={(handleContact)}>
             Contactez-nous
           </Button>
         </Toolbar>

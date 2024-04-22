@@ -17,6 +17,11 @@ import AddStudentPage from './Components/Admin/AddStudentPage';
 import EmploisPage from './Components/Admin/emploi';
 import Profile from './Components/Profile'
 import UserProfile from './Components/Profile';
+import ContactForm from './Components/ContactForm';
+import Profilead from './Components/Profilead'
+import TeacherEmploi from './Components/TeacherComponents/teacheremploi';
+import EmploiTemps from './Components/StudentComponents/EmploiTempsComponent';
+
 function App() {
   return (
   <div>
@@ -24,8 +29,12 @@ function App() {
       <Routes>
       <Route path="/" element={<Navigate to="/AccueilAuth" />} />
       <Route path='/add-student' element={<AddStudentPage/>}></Route>
+      <Route path='/contact' element={<ContactForm/>}></Route>
       <Route path='/emploi' element={<EmploisPage/>}></Route>
-      <Route path='/profilet' element={<UserProfile />}></Route>
+      <Route path='/SignIn' element={<SignIn/>}></Route>
+      <Route path='/profile' element={<Profile/>}></Route>
+      <Route path='/Profil' element={<Profilead/>}></Route>
+      <Route path='/studentemploi' element={<EmploiTemps/>}></Route>
       <Route path='/studentspage' element={<StudentsPage/>}></Route>
       <Route path='/admindashboard' element={<AdminDashboard/>}></Route>
     <Route path='/adminsignin' element={<AdminSignIn/>}></Route>

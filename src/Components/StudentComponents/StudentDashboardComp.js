@@ -10,23 +10,32 @@ import Demande from './Demande'
 import CompteRendu from './CompteRendu';
 import { AppBar, Toolbar, Typography, IconButton, Badge, Avatar, InputBase, Box, Grid } from '@mui/material';
 import { Search as SearchIcon, Notifications as NotificationsIcon } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
 
 
 function StudentDashboard() {
   const [currentPage, setCurrentPage] = React.useState('Dashboard');
   const [searchQuery, setSearchQuery] = useState('');
+  const navigate = useNavigate();
 
 
   const handleSidebarClick = (page) => {
     if (page === 'Logout') {
-      window.location.href = '/AdminSignInComp'; 
+      window.location.href = '/SignIn'; 
     } else {
       setCurrentPage(page);
     }
   };
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
+  };
+  const handleProfile = () => {
+    navigate('/profile');
+    console.log("profile");
+  };
+  const handleEmploi = () => {
+    navigate('/studentemploi');
   };
 
   return (
@@ -52,14 +61,17 @@ function StudentDashboard() {
                       <NotificationsIcon />
                     </Badge>
                   </IconButton>
-                  <Avatar alt="Admin" src="/path/to/admin-image.jpg" sx={{ width: 40, height: 40, marginLeft: '8px' }} />
+                  <div onClick={handleProfile}>
+                  <Avatar alt="Admin" src="/path/to/admin-image.jpg" sx={{ width: 40, height: 40, marginLeft: '8px' }}  /></div>
                 </Box>
               </Grid>
             </Grid>
           </Toolbar>
         </AppBar>
           {currentPage === 'Dashboard' && <AnnonceE />}
+          <div onClick={handleEmploi}>
           {currentPage === 'Emploi De Temps' && <EmploiTemps />}
+          </div>
           {currentPage === 'Supports De cours' && <LeftSidebar />}
           
           {currentPage === 'Quizs' && <QuizList/>}
