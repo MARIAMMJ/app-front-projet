@@ -72,14 +72,7 @@ function TeacherDashboard() {
 
           {currentPage === 'Demandes' && <Demande/>}
           {currentPage === 'Comptes Rendus' && <AddCompteRendu/>}
-<<<<<<< HEAD
-          {currentPage === 'Quizs' && <AddQuiz/>}
 
-
-=======
-          
->>>>>>> 1639496c6333f84aef094dd9443fd57d198aa0c7
-          
 
 
 

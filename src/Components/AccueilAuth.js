@@ -76,6 +76,7 @@ function AccueilAuth() {
 
   const handleAdminLogin = () => {
     console.log("Connexion en tant qu'administrateur");
+    navigate('/AdminDashboard');
   };
 
   const handleTeacherLogin = () => {
