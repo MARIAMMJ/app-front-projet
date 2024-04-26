@@ -3,7 +3,7 @@ import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import Navbar from "./navbar";
 
-const FORM_ENDPOINT = "https://herotofu.com/start"; // TODO - update to the correct endpoint
+const FORM_ENDPOINT = "https://herotofu.com/start"; 
 
 const ContactForm = () => {
   const [submitted, setSubmitted] = useState(false);

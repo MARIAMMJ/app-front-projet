@@ -1,8 +1,8 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography, Button, Grid, Paper } from '@material-ui/core';
-import { AccountCircle as AccountCircleIcon, School as SchoolIcon, Work as WorkIcon } from '@material-ui/icons';
 import { makeStyles } from '@material-ui/core/styles';
 import { useNavigate } from 'react-router-dom';
+import { FaUserGraduate as StudentIcon, FaChalkboardTeacher as TeacherIcon, FaUserTie as AdminIcon } from 'react-icons/fa'; // Import des icônes React
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,13 +29,16 @@ const useStyles = makeStyles((theme) => ({
     fontStyle: 'italic',
     marginBottom: theme.spacing(1),
   },
-  button: {
+  box: {
     margin: theme.spacing(1),
+    padding: theme.spacing(2),
     color: '#2C5282', 
-    backgroundColor: '#ffffff', 
-    '&:hover': {
-      backgroundColor: '#ffffff', 
-    },
+    backgroundColor: '#ffffff',
+    width: '110px', // Légère réduction de la taille
+    height: '70px', // Légère réduction de la taille
+    borderRadius: '5px',
+    cursor: 'pointer',
+    boxShadow: '0px 3px 6px rgba(0, 0, 0, 0.16)', // Ajout d'une ombre
   },
   title: {
     flexGrow: 1,
@@ -46,14 +49,14 @@ const useStyles = makeStyles((theme) => ({
   },
   gridItem: {
     position: 'relative', 
-    top: '-40px', 
+    top: '-60px', 
   },
   icon: {
     fontSize: '2rem', 
     color: '#2C5282', 
   },
   buttonText: {
-    fontSize: '1rem', 
+    fontSize: '1.2rem', 
   },
   footerText: {
     color: '#2C5282', 
@@ -75,8 +78,14 @@ function AccueilAuth() {
   const navigate = useNavigate();
 
   const handleAdminLogin = () => {
+    navigate('/AdminDashboard');
     console.log("Connexion en tant qu'administrateur");
     navigate('/AdminDashboard');
+  };
+
+  const handleContact = () => {
+    navigate('/contact');
+    console.log("Contact");
   };
 
   const handleTeacherLogin = () => {
@@ -114,7 +123,7 @@ function AccueilAuth() {
             <a href="/" style={linkStyle}>Issatso+</a>
           </Typography>
 
-          <Button color="inherit" className={classes.button} onClick={() => console.log("Contactez-nous")} style={{ backgroundColor: '#ffffff'}}>
+          <Button color="#2C5282" className={classes.button} onClick={(handleContact)}>
             Contactez-nous
           </Button>
         </Toolbar>
@@ -131,40 +140,34 @@ function AccueilAuth() {
 
       <Grid container spacing={2} justify="center">
         <Grid item className={classes.gridItem}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
+          <div
+            className={classes.box}
             onClick={handleAdminLogin}
           >
-            <WorkIcon className={classes.icon} />
+            <AdminIcon className={classes.icon} /> 
             <br />
             <span className={classes.buttonText}>Administrateur</span>
-          </Button>
+          </div>
         </Grid>
         <Grid item className={classes.gridItem}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
+          <div
+            className={classes.box}
             onClick={handleStudentLogin}
           >
-            <AccountCircleIcon className={classes.icon} />
+            <StudentIcon className={classes.icon} /> 
             <br />
             <span className={classes.buttonText}>Étudiant</span>
-          </Button>
+          </div>
         </Grid>
         <Grid item className={classes.gridItem}>
-          <Button
-            variant="contained"
-            color="primary"
-            className={classes.button}
+          <div
+            className={classes.box}
             onClick={handleTeacherLogin}
           >
-            <SchoolIcon className={classes.icon} />
+            <TeacherIcon className={classes.icon} /> 
             <br />
             <span className={classes.buttonText}>Enseignant</span>
-          </Button>
+          </div>
         </Grid>
       </Grid>
 

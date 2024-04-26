@@ -10,17 +10,18 @@ const CompteRenduPage = () => {
 
     const handleFiliereSelect = (event) => {
         setSelectedFiliere(event.target.value);
-        // Ajoutez ici la logique pour récupérer les classes de la filière sélectionnée
     };
 
+    const handleCRDeposit = () => {
+        // Ajoutez ici la logique pour gérer le dépôt du compte rendu par l'étudiant
+    };
+    
     const handleClasseSelect = (event) => {
         setSelectedClasse(event.target.value);
-        // Ajoutez ici la logique pour récupérer les comptes rendus de la classe sélectionnée
     };
 
     const handleCRSelect = (cr) => {
         setSelectedCR(cr);
-        // Ajoutez ici la logique pour afficher les détails du compte rendu sélectionné
     };
 
     const handleDialogOpen = () => {
@@ -36,18 +37,23 @@ const CompteRenduPage = () => {
     };
 
     const handleAddCR = () => {
-        // Ajoutez ici la logique pour ajouter le nouveau compte rendu
         console.log('Nouveau compte rendu:', newCR);
-        setNewCR({ titre: '', description: '', deadline: '' }); // Réinitialise les champs après l'ajout
-        setOpenDialog(false); // Ferme la boîte de dialogue après l'ajout
+        setNewCR({ titre: '', description: '', deadline: '' });
+        setOpenDialog(false);
     };
 
-    const classes = ['Groupe 1', 'Groupe 2', 'Groupe3']; // Exemple de classes
+    const handlePDFUpload = (event) => {
+        // Logique pour le téléchargement du PDF
+        const file = event.target.files[0];
+        console.log('Fichier PDF ajouté:', file);
+    };
+
+    const classes = ['Groupe 1', 'Groupe 2', 'Groupe3'];
 
     const comptesRendus = [
         { titre: 'CR 1', description: 'Description du CR 1', dateDepot: '2024-03-28', deadline: '2024-03-31', etudiants: [{ nom: 'Etudiant 1', aDepose: true, dateDepot: '2024-03-27' }, { nom: 'Etudiant 2', aDepose: false, dateDepot: '' }] },
         { titre: 'CR 2', description: 'Description du CR 2', dateDepot: '2024-03-30', deadline: '2024-03-29', etudiants: [{ nom: 'Etudiant 1', aDepose: true, dateDepot: '2024-03-29' }, { nom: 'Etudiant 2', aDepose: true, dateDepot: '2024-03-30' }] }
-    ]; // Exemple de comptes rendus
+    ];
 
     return (
         <Container>
@@ -92,8 +98,8 @@ const CompteRenduPage = () => {
                         <Grid container spacing={2}>
                             {comptesRendus.map((cr, index) => (
                                 <Grid item xs={12} sm={6} md={4} key={index}>
-                                    <Card onClick={() => handleCRSelect(cr)} style={{ cursor: 'pointer', position: 'relative' }}>
-                                        <CardContent>
+                                    <Card onClick={() => handleCRSelect(cr)} style={{ cursor: 'pointer', position: 'relative', height: '100%', display: 'flex', flexDirection: 'column' }}>
+                                        <CardContent style={{ flexGrow: 1 }}>
                                             <Typography variant="h5" component="h2">{cr.titre}</Typography>
                                             <Typography>{cr.description}</Typography>
                                             <Typography variant="caption" style={{ marginTop: '5px' }}>Deadline: {cr.deadline}</Typography>
@@ -101,6 +107,7 @@ const CompteRenduPage = () => {
                                         <div style={{ position: 'absolute', top: 10, right: 10 }}>
                                             {new Date(cr.deadline) > new Date() ? <div style={{ backgroundColor: 'green', width: '20px', height: '20px', borderRadius: '50%' }}></div> : <div style={{ backgroundColor: 'red', width: '20px', height: '20px', borderRadius: '50%' }}></div>}
                                         </div>
+                                        <Button variant="outlined" component="span" sx={{marginBottom:"10px" , width:"250px" ,marginLeft:"40px"}} onClick={() => handlePDFUpload(cr)}>Télécharger l'enoncee</Button>
                                     </Card>
                                 </Grid>
                             ))}
@@ -117,6 +124,7 @@ const CompteRenduPage = () => {
                                         <TableCell>Nom de l'Étudiant</TableCell>
                                         <TableCell>A déposé le CR</TableCell>
                                         <TableCell>Date de dépôt</TableCell>
+                                        <TableCell>Les CRs</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -127,6 +135,9 @@ const CompteRenduPage = () => {
                                                 <Checkbox checked={etudiant.aDepose} disabled />
                                             </TableCell>
                                             <TableCell>{etudiant.dateDepot}</TableCell>
+                                            <TableCell>
+                                                <Button onClick={() => handleCRDeposit(etudiant)}>Telecharger</Button>
+                                            </TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -169,6 +180,18 @@ const CompteRenduPage = () => {
                             shrink: true,
                         }}
                     />
+                    <input
+                        accept="application/pdf"
+                        id="pdf-upload"
+                        type="file"
+                        onChange={handlePDFUpload}
+                        style={{ display: 'none' }}
+                    />
+                    <label htmlFor="pdf-upload">
+                        <Button variant="contained" component="span" color="primary" style={{ marginTop: '20px' }}>
+                            Ajouter un fichier PDF
+                        </Button>
+                    </label>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleDialogClose}>Annuler</Button>

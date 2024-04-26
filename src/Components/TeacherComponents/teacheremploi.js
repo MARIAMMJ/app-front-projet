@@ -74,7 +74,7 @@ const CalendarPDF = ({ weekLabel }) => (
   </Document>
 );
 
-const EmploiTemps = () => {
+const TeacherEmploi = () => {
   return (
     <div>
       <h1 style={{ textAlign: 'center' }}>Emploi du temps</h1>
@@ -85,4 +85,4 @@ const EmploiTemps = () => {
   );
 };
 
-export default EmploiTemps;
+export default TeacherEmploi;

@@ -3,7 +3,7 @@ import { Accordion, AccordionItem, AccordionButton, AccordionPanel, AccordionIco
 import { Link } from '@chakra-ui/react';
 import { ExternalLinkIcon, CalendarIcon } from '@chakra-ui/icons'; // Importer l'icône de calendrier
 
-function AnnonceE(props) {
+function AnnonceEns(props) {
   // Obtenir la date actuelle au format français
   const currentDate = new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' });
 
@@ -34,4 +34,4 @@ function AnnonceE(props) {
   );
 }
 
-export default AnnonceE;
+export default AnnonceEns;

@@ -141,29 +141,6 @@ export default function UserProfile() {
             <TextField
               margin="normal"
               fullWidth
-              disabled={editingField !== 'program'}
-              id="program"
-              label="Program"
-              name="program"
-              autoComplete="program"
-              value={userData.program}
-              onChange={handleChange}
-            />
-            <TextField
-              margin="normal"
-              fullWidth
-              disabled={editingField !== 'group'}
-              id="group"
-              label="Group"
-              name="group"
-              autoComplete="group"
-              value={userData.group}
-              onChange={handleChange}
-            />
-            {/* Champ de mot de passe modifiable */}
-            <TextField
-              margin="normal"
-              fullWidth
               disabled={editingField !== 'password'}
               id="password"
               label="Password"

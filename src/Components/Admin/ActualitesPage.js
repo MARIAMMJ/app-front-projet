@@ -103,7 +103,7 @@ function ActualitesPage() {
               id="category-select"
               value={selectedCategory}
               onChange={(e) => loadActualites(e.target.value)}
-              sx={{ color: 'primary.main', width: 200 }}
+              sx={{ color: 'black', width: 300 }}
             >
               {categories.map((category) => (
                 <MenuItem key={category} value={category}>{category}</MenuItem>
