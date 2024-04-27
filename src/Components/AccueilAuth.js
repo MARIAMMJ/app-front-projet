@@ -3,6 +3,8 @@ import { AppBar, Toolbar, Typography, Button, Grid, Paper } from '@material-ui/c
 import { makeStyles } from '@material-ui/core/styles';
 import { useNavigate } from 'react-router-dom';
 import { FaUserGraduate as StudentIcon, FaChalkboardTeacher as TeacherIcon, FaUserTie as AdminIcon } from 'react-icons/fa'; // Import des icônes React
+import axios from 'axios';
+import  { useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,9 +75,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
+
 function AccueilAuth() {
   const classes = useStyles();
   const navigate = useNavigate();
+  const [testMessage, setTestMessage] = useState('');
+
 
   const handleAdminLogin = () => {
     navigate('/AdminDashboard');
@@ -95,7 +101,7 @@ function AccueilAuth() {
 
   const handleStudentLogin = () => {
     console.log("Connexion en tant qu'étudiant");
-    navigate('/StudentDashboard');
+    navigate('/SignIn');
   };
 
   const handleSeeMore = () => {
@@ -108,6 +114,16 @@ function AccueilAuth() {
     margin: '0 10px', 
     textDecoration: 'none', 
     color: '#2C5282', 
+  };
+  const handleTestApi = () => {
+    axios.get('localhost:9191/issatso/admin/test')
+      .then(response => {
+        setTestMessage(response.data); // Set the test message received from the backend
+      })
+      .catch(error => {
+        console.error('Error testing API:', error.message);
+        setTestMessage('Failed to fetch test message'); // Set a message indicating the test failed
+      });
   };
 
   return (
@@ -133,6 +149,8 @@ function AccueilAuth() {
         <Typography variant="h4" className={classes.welcomeText}>
           Bienvenue dans ISSATSO
         </Typography>
+        <Typography>{testMessage}</Typography>
+
         <Typography variant="subtitle1" className={classes.quoteText}>
           L'éducation est la meilleure clé de succès dans la vie
         </Typography>

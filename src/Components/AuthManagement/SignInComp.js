@@ -1,4 +1,5 @@
-import * as React from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -14,38 +15,44 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navbar from '../navbar';
 
-function Copyright(props) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-// TODO remove, this demo shouldn't need to reset the theme.
-
 const defaultTheme = createTheme();
 
-export default function SignIn() {
-  const handleSubmit = (event) => {
+const SignIn = () => {
+  const navigate = useNavigate();
+  const [error, setError] = useState('');
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+    const formData = new FormData(event.target);
+    const email = formData.get('email');
+    const password = formData.get('password');
+
+    try {
+      const response = await fetch('http://localhost:9191/issatso/authentificat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('token', data.token);
+        navigate('/StudentDashboard'); // Redirect to dashboard after successful authentication
+      } else {
+        setError('Invalid email or password'); // Display error message
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
-        <Navbar/>
+        <Navbar />
         <Box
           sx={{
             marginTop: 13,
@@ -54,13 +61,13 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
-        <Avatar sx={{ m: 1, bgcolor: '#0778f9' }}>
+          <Avatar sx={{ m: 1, bgcolor: '#0778f9' }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
             Se connecter
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <form onSubmit={handleSubmit}>
             <TextField
               margin="normal"
               required
@@ -85,25 +92,22 @@ export default function SignIn() {
               control={<Checkbox value="remember" color="primary" />}
               label="Souvenir de moi"
             />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-            >
+            {error && <Typography color="error">{error}</Typography>}
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               Se connecter
             </Button>
-            <Grid container>
-              <Grid item xs>
-                <Link href="#" variant="body2">
+          </form>
+          <Grid container>
+            <Grid item xs>
+              <Link href="#" variant="body2">
                 Mot de passe oublié?
-                </Link>
-              </Grid>
+              </Link>
             </Grid>
-          </Box>
+          </Grid>
         </Box>
-        {/* <Copyright sx={{ mt: 8, mb: 4 }} /> */}
       </Container>
     </ThemeProvider>
   );
-}
+};
+
+export default SignIn;

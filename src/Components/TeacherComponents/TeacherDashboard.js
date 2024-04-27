@@ -19,15 +19,15 @@ function TeacherDashboard() {
   const navigate = useNavigate();
 
 
-  const isLoggedIn = Cookies.get('isLoggedIn') === 'true'; 
+  // const isLoggedIn = Cookies.get('isLoggedIn') === 'true'; 
   const handleSidebarClick = (page) => {
-    if (page === 'Logout') {
-      Cookies.remove('isLoggedIn'); 
-      window.location.href = '/SignIn'; 
-    } else {
-      setCurrentPage(page);
+  //   if (page === 'Logout') {
+  //     Cookies.remove('isLoggedIn'); 
+  //     window.location.href = '/SignIn'; 
+  //   } else {
+    setCurrentPage(page);
     }
-  };
+  // };
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -41,10 +41,10 @@ function TeacherDashboard() {
   const handleEmploi = () => {
     navigate('/teacheremploi');
   };
-  if (!isLoggedIn) {
-    window.location.href = '/SignIn'; 
-    return null;
-  }
+  // if (!isLoggedIn) {
+  //   window.location.href = '/SignIn'; 
+  //   return null;
+  // }
 
   return (
       <Box
