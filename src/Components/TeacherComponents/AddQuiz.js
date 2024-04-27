@@ -5,6 +5,15 @@ import ArrowForwardIcon from '@material-ui/icons/ArrowForward';
 
 const useStyles = makeStyles({
   root: {
+    marginTop: '20px',
+    marginLeft: '20px',
+  },
+  addButton: {
+    marginLeft: '20px',
+    marginTop: '20px', 
+  },
+  formControl: {
+    minWidth: '120px',
     marginBottom: '20px',
   },
   card: {
@@ -16,16 +25,6 @@ const useStyles = makeStyles({
     marginLeft: '20px',
     marginBottom: '10px',
   },
-  addButton: {
-    marginLeft: 'auto',
-    marginBottom: '10px',
-    marginRight: '10px',
-    marginTop: '10px',
-  },
-  formControl: {
-    minWidth: '120px',
-    marginBottom: '20px',
-  },
 });
 
 function QuizList() {
@@ -33,8 +32,7 @@ function QuizList() {
   const [open, setOpen] = useState(false);
   const [step, setStep] = useState(1);
   const [quizTitle, setQuizTitle] = useState('');
-  const [questions, setQuestions] = useState(new Array(5).fill(''));
-  const [correctAnswer, setCorrectAnswer] = useState('');
+  const [questions, setQuestions] = useState([]);
   const [errors, setErrors] = useState({});
   const [selectedMatiere, setSelectedMatiere] = useState('');
   const [quizzes, setQuizzes] = useState([]);
@@ -47,8 +45,7 @@ function QuizList() {
     setOpen(false);
     setStep(1);
     setQuizTitle('');
-    setQuestions(new Array(5).fill(''));
-    setCorrectAnswer('');
+    setQuestions([]);
     setErrors({});
   };
 
@@ -61,17 +58,8 @@ function QuizList() {
       isValid = false;
     }
 
-    if (step === 2) {
-      questions.forEach((question, index) => {
-        if (!question.trim()) {
-          newErrors[`question${index}`] = `La question ${index + 1} est requise`;
-          isValid = false;
-        }
-      });
-    }
-
-    if (step === 3 && !correctAnswer.trim()) {
-      newErrors.correctAnswer = 'La réponse correcte est requise';
+    if (step === 2 && questions.length === 0) {
+      newErrors.questionCount = 'Veuillez spécifier le nombre de questions';
       isValid = false;
     }
 
@@ -94,24 +82,20 @@ function QuizList() {
       isValid = false;
     }
 
-    questions.forEach((question, index) => {
-      if (!question.trim()) {
-        newErrors[`question${index}`] = `La question ${index + 1} est requise`;
-        isValid = false;
-      }
-    });
-
-    if (!correctAnswer.trim()) {
-      newErrors.correctAnswer = 'La réponse correcte est requise';
+    if (questions.length === 0) {
+      newErrors.questionCount = 'Veuillez spécifier le nombre de questions';
       isValid = false;
     }
 
     if (isValid) {
-      // Ajouter le quiz spécifique à la matière sélectionnée
       const newQuizzes = [...quizzes];
       newQuizzes.push({
         title: quizTitle,
-        questionCount: questions.length,
+        questions: questions.map((questionItem) => ({
+          question: questionItem.question,
+          answers: questionItem.answers,
+          correctAnswerIndex: questionItem.correctAnswerIndex,
+        })),
         createdAt: new Date().toLocaleDateString(),
       });
       setQuizzes(newQuizzes);
@@ -123,35 +107,33 @@ function QuizList() {
 
   const handleMatiereChange = (event) => {
     setSelectedMatiere(event.target.value);
-    // Mettre à jour les quizs en fonction de la matière sélectionnée
     if (event.target.value === 'Matière 1') {
       setQuizzes([
-        { title: 'Quiz 1', questionCount: 5, createdAt: '2024-03-31' },
-        { title: 'Quiz 2', questionCount: 10, createdAt: '2024-03-30' },
-        { title: 'Quiz 3', questionCount: 8, createdAt: '2024-03-29' },
+        { title: 'Quiz 1', questions: [], createdAt: '2024-03-31' },
+        { title: 'Quiz 2', questions: [], createdAt: '2024-03-30' },
+        { title: 'Quiz 3', questions: [], createdAt: '2024-03-29' },
       ]);
     } else if (event.target.value === 'Matière 2') {
       setQuizzes([
-        { title: 'Quiz 4', questionCount: 6, createdAt: '2024-03-28' },
-        { title: 'Quiz 5', questionCount: 7, createdAt: '2024-03-27' },
+        { title: 'Quiz 4', questions: [], createdAt: '2024-03-28' },
+        { title: 'Quiz 5', questions: [], createdAt: '2024-03-27' },
       ]);
     } else if (event.target.value === 'Matière 3') {
       setQuizzes([
-        { title: 'Quiz 6', questionCount: 9, createdAt: '2024-03-26' },
-        { title: 'Quiz 7', questionCount: 4, createdAt: '2024-03-25' },
-        { title: 'Quiz 8', questionCount: 12, createdAt: '2024-03-24' },
+        { title: 'Quiz 6', questions: [], createdAt: '2024-03-26' },
+        { title: 'Quiz 7', questions: [], createdAt: '2024-03-25' },
+        { title: 'Quiz 8', questions: [], createdAt: '2024-03-24' },
       ]);
     } else {
-      // Si aucune matière n'est sélectionnée, réinitialiser la liste des quizs
       setQuizzes([]);
     }
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} >
       {/* Menu de sélection des matières */}
-      <FormControl className={classes.formControl} style={{ marginLeft: '20px' , marginTop:'10px' }} >
-        <InputLabel id="select-matiere-label" >Matière</InputLabel>
+      <FormControl className={classes.formControl}  >
+        <InputLabel id="select-matiere-label"  >Matière</InputLabel>
         <Select
           labelId="select-matiere-label"
           id="select-matiere"
@@ -169,17 +151,15 @@ function QuizList() {
 
       {/* Bouton d'ajout */}
       {selectedMatiere && (
-  <Button
-    className={classes.addButton}
-    variant="contained"
-    color="primary"
-    onClick={handleOpen}
-    style={{ marginLeft: '20px' , marginTop:'20px' }} 
-  >
-    Créer un nouveau quiz
-  </Button>
-)}
-
+        <Button
+          className={classes.addButton}
+          variant="contained"
+          color="primary"
+          onClick={handleOpen}
+        >
+          Créer un nouveau quiz
+        </Button>
+      )}
 
       {/* Liste des quizs */}
       <Grid container spacing={2}>
@@ -191,7 +171,7 @@ function QuizList() {
                   {quiz.title}
                 </Typography>
                 <Typography color="textSecondary">
-                  Nombre de questions: {quiz.questionCount}
+                  Nombre de questions: {quiz.questions.length}
                 </Typography>
                 <Typography color="textSecondary">
                   Date de création: {quiz.createdAt}
@@ -224,39 +204,75 @@ function QuizList() {
 
           {step === 2 && (
             <div>
-              {questions.map((question, index) => (
-                <TextField
-                  key={index}
-                  margin="dense"
-                  label={`Question ${index + 1}`}
-                  type="text"
-                  fullWidth
-                  value={question}
-                  onChange={(e) => {
-                    const newQuestions = [...questions];
-                    newQuestions[index] = e.target.value;
-                    setQuestions(newQuestions);
-                  }}
-                  error={!!errors[`question${index}`]}
-                  helperText={errors[`question${index}`]}
-                />
+              {questions.map((questionItem, questionIndex) => (
+                <div key={questionIndex}>
+                  <TextField
+                    margin="dense"
+                    label={`Question ${questionIndex + 1}`}
+                    type="text"
+                    fullWidth
+                    value={questionItem.question}
+                    onChange={(e) => {
+                      const newQuestions = [...questions];
+                      newQuestions[questionIndex].question = e.target.value;
+                      setQuestions(newQuestions);
+                    }}
+                    error={!!errors[`question${questionIndex}`]}
+                    helperText={errors[`question${questionIndex}`]}
+                  />
+                  {questionItem.answers.map((answer, answerIndex) => (
+                    <TextField
+                      key={answerIndex}
+                      margin="dense"
+                      label={`Réponse ${answerIndex + 1}`}
+                      type="text"
+                      fullWidth
+                      value={answer}
+                      onChange={(e) => {
+                        const newQuestions = [...questions];
+                        newQuestions[questionIndex].answers[answerIndex] = e.target.value;
+                        setQuestions(newQuestions);
+                      }}
+                    />
+                  ))}
+                  <FormControl fullWidth>
+                    <InputLabel id={`correctAnswerLabel${questionIndex}`}>Réponse correcte</InputLabel>
+                    <Select
+                      labelId={`correctAnswerLabel${questionIndex}`}
+                      value={questionItem.correctAnswerIndex}
+                      onChange={(e) => {
+                        const newQuestions = [...questions];
+                        newQuestions[questionIndex].correctAnswerIndex = e.target.value;
+                        setQuestions(newQuestions);
+                      }}
+                    >
+                      {questionItem.answers.map((answer, answerIndex) => (
+                        <MenuItem key={answerIndex} value={answerIndex}>{`Réponse ${answerIndex + 1}`}</MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
+                </div>
               ))}
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={() => {
+                  setQuestions([
+                    ...questions,
+                    {
+                      question: '',
+                      answers: ['', '', '', ''],
+                      correctAnswerIndex: 0,
+                    }
+                  ]);
+                }}
+                className={classes.addButton} // Ajouter la classe addButton ici
+              >
+                Ajouter une question
+              </Button>
             </div>
           )}
 
-          {step === 3 && (
-            <TextField
-              margin="dense"
-              id="correctAnswer"
-              label="Réponse correcte"
-              type="text"
-              fullWidth
-              value={correctAnswer}
-              onChange={(e) => setCorrectAnswer(e.target.value)}
-              error={!!errors.correctAnswer}
-              helperText={errors.correctAnswer}
-            />
-          )}
         </DialogContent>
         <DialogActions>
           {step > 1 && (
@@ -265,13 +281,13 @@ function QuizList() {
             </Button>
           )}
 
-          {step < 3 && (
+          {step < 2 && (
             <IconButton onClick={handleNextStep}>
               <ArrowForwardIcon />
             </IconButton>
           )}
 
-          {step === 3 && (
+          {step === 2 && (
             <Button onClick={handleAddQuiz} color="primary">
               Ajouter quiz
             </Button>

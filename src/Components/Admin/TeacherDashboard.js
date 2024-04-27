@@ -4,12 +4,10 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
 import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
-import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import Button from '@mui/material/Button';
 import AddTeacher from './AddTeacher';
+import IconButton from '@mui/material/IconButton';
 import {
-  Button,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -58,14 +56,17 @@ function TeacherDashboard() {
   const [selectedTeacherDetails, setSelectedTeacherDetails] = useState(null);
   const [editedPhoneNumber, setEditedPhoneNumber] = useState('');
   const [editedEmail, setEditedEmail] = useState('');
-  const [editedPassword, setEditedPassword] = useState(''); // Nouvel état pour le mot de passe
+  const [editedPassword, setEditedPassword] = useState('');
   const [isEditingPhoneNumber, setIsEditingPhoneNumber] = useState(false);
   const [isEditingEmail, setIsEditingEmail] = useState(false);
-  const [isEditingPassword, setIsEditingPassword] = useState(false); // Nouvel état pour activer/désactiver la modification du mot de passe
+  const [isEditingPassword, setIsEditingPassword] = useState(false);
+  const [inscriptionNumber, setInscriptionNumber] = useState('');
+  const [nom, setNom] = useState('');
+  const [prenom, setPrenom] = useState('');
 
   const handleAddTeacherClick = () => {
     setIsAddingTeacher(true);
-    setFilter(null); // Supprime le filtre lorsque l'ajout d'enseignant est activé
+    setFilter(null);
   };
 
   const handleCancelAddTeacher = () => {
@@ -75,6 +76,9 @@ function TeacherDashboard() {
   const handleRemoveTeacherClick = (teacher) => {
     setSelectedTeacher(teacher);
     setIsRemovingTeacher(true);
+    setInscriptionNumber(teacher.id.toString());
+    setNom(teacher.lastName);
+    setPrenom(teacher.firstName);
   };
 
   const handleCancelRemoveTeacher = () => {
@@ -83,7 +87,6 @@ function TeacherDashboard() {
   };
 
   const handleConfirmRemoveTeacher = () => {
-    // Ajouter le code pour supprimer l'enseignant
     setIsRemovingTeacher(false);
     setSelectedTeacher(null);
   };
@@ -97,7 +100,7 @@ function TeacherDashboard() {
     setOpenTeacherDetails(true);
     setEditedPhoneNumber(teacher.details.phoneNumber);
     setEditedEmail(teacher.details.email);
-    setEditedPassword(''); // Réinitialiser le champ de mot de passe lors de l'ouverture des détails de l'enseignant
+    setEditedPassword('');
   };
 
   const handleCloseTeacherDetails = () => {
@@ -120,24 +123,19 @@ function TeacherDashboard() {
   };
 
   const handleSaveChanges = () => {
-    // Mettre à jour le numéro de téléphone, l'e-mail et le mot de passe dans les détails de l'enseignant
     const updatedTeacherDetails = {
       ...selectedTeacherDetails,
       details: {
         ...selectedTeacherDetails.details,
         phoneNumber: editedPhoneNumber,
         email: editedEmail,
-        password: editedPassword, // Mettre à jour le mot de passe
+        password: editedPassword,
       },
     };
-    // Mettre à jour les détails de l'enseignant dans la liste des enseignants
     const updatedTeachers = teachers.map((teacher) =>
       teacher.id === selectedTeacherDetails.id ? updatedTeacherDetails : teacher
     );
-    // Mettre à jour l'état local avec les nouveaux détails de l'enseignant
     setSelectedTeacherDetails(updatedTeacherDetails);
-    // Mettre à jour la liste des enseignants
-    // (vous pouvez ajouter la logique pour mettre à jour la liste dans la base de données ici)
     setSelectedTeacherDetails(null);
     setOpenTeacherDetails(false);
     setIsEditingPhoneNumber(false);
@@ -152,7 +150,10 @@ function TeacherDashboard() {
     : teachers;
 
   return (
-    <div style={{ marginTop: '20px', flexGrow: 1, p: 3, marginLeft: '240px' }}>
+    <div style={{ marginTop: '20px', flexGrow: 1, p: 3, marginLeft: '240px', position: 'relative' }}>
+      <Button variant="contained" color="primary" onClick={handleAddTeacherClick} style={{ position: 'absolute', top: 0, right: 0, margin: '20px' }}>
+        Ajouter un enseignant
+      </Button>
       {!isAddingTeacher && (
         <TextField
           select
@@ -176,35 +177,33 @@ function TeacherDashboard() {
           {filteredTeachers.map((teacher) => (
             <Grid item xs={12} sm={6} md={4} key={teacher.id}>
               <Card>
-                <CardContent onClick={() => handleTeacherDetailsClick(teacher)} style={{ cursor: 'pointer' }}>
-                  <Avatar alt={`${teacher.firstName} ${teacher.lastName}`} src={teacher.image} sx={{ width: 80, height: 80, margin: 'auto' }} />
-                  <Typography variant="h6" gutterBottom align="center">{`${teacher.firstName} ${teacher.lastName}`}</Typography>
-                  <Typography variant="body1" gutterBottom align="center">{teacher.subject}</Typography>
-                  <Typography variant="body2" color="textSecondary" align="center">Joined: {teacher.dateJoined}</Typography>
+                <CardContent style={{ position: 'relative' }}>
+                  <Button
+                    style={{ position: 'absolute', top: 0, right: 0, zIndex: 1, color: 'red' }}
+                    onClick={() => handleRemoveTeacherClick(teacher)}
+                  >
+                    X
+                  </Button>
+                  <div onClick={() => handleTeacherDetailsClick(teacher)}>
+                    <Avatar alt={`${teacher.firstName} ${teacher.lastName}`} src={teacher.image} sx={{ width: 80, height: 80, margin: 'auto' }} />
+                    <Typography variant="h6" gutterBottom align="center">{`${teacher.firstName} ${teacher.lastName}`}</Typography>
+                    <Typography variant="body1" gutterBottom align="center">{teacher.subject}</Typography>
+                    <Typography variant="body2" color="textSecondary" align="center">Joined: {teacher.dateJoined}</Typography>
+                  </div>
                 </CardContent>
               </Card>
-              <div style={{ position: 'absolute', top: '80px', right: '70px' }}>
-                <IconButton style={{ color: 'green' }} aria-label="Ajouter Enseignant" onClick={handleAddTeacherClick}>
-                  <AddCircleIcon fontSize="large" />
-                </IconButton>
-                <IconButton style={{ color: 'red' }} aria-label="Supprimer Enseignant" onClick={() => handleRemoveTeacherClick(teacher)}>
-                  <RemoveCircleIcon fontSize="large" />
-                </IconButton>
-              </div>
             </Grid>
           ))}
         </Grid>
       )}
 
-      {/* Popup de suppression */}
       <Dialog open={isRemovingTeacher} onClose={handleCancelRemoveTeacher}>
         <DialogTitle>Supprimer Enseignant</DialogTitle>
         <DialogContent>
-          <TextField label="Numéro d'inscription" fullWidth margin="normal" />
-          <TextField label="Nom" fullWidth margin="normal" />
-          <TextField label="Prénom" fullWidth margin="normal" />
+          <TextField label="Numéro d'inscription" fullWidth margin="normal" value={inscriptionNumber} />
+          <TextField label="Nom" fullWidth margin="normal" value={nom} />
+          <TextField label="Prénom" fullWidth margin="normal" value={prenom} />
           <TextField label="Cause" fullWidth margin="normal" />
-          {/* Utilisez les composants de DatePicker pour les dates */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCancelRemoveTeacher} color="primary">
@@ -216,7 +215,6 @@ function TeacherDashboard() {
         </DialogActions>
       </Dialog>
 
-      {/* Dialog pour afficher les détails de l'enseignant */}
       <Dialog open={openTeacherDetails} onClose={handleCloseTeacherDetails} maxWidth="sm" >
         <DialogTitle>{`${selectedTeacherDetails?.firstName} ${selectedTeacherDetails?.lastName}`}</DialogTitle>
         <DialogContent>
@@ -228,7 +226,6 @@ function TeacherDashboard() {
           <Typography variant="body2" gutterBottom align="center">Date de naissance: {selectedTeacherDetails?.details?.birthDate}</Typography>
           {isEditingPhoneNumber ? (
             <TextField 
-            sx={{ textAlign: 'center' }} 
               label="Numéro de téléphone"
               fullWidth
               value={editedPhoneNumber}
@@ -261,7 +258,6 @@ function TeacherDashboard() {
           )}
           {isEditingPassword ? (
             <TextField
-             textAlign= 'center'  
               label="Mot de passe"
               fullWidth
               value={editedPassword}

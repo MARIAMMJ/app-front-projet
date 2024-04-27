@@ -52,7 +52,7 @@ function AddTeacher({ onTeacherAdded }) {
   };
 
   return (
-    <div style={{ padding: '20px', marginTop: '-10px', textAlign: 'center' }}>
+    <div style={{ padding: '20px', marginTop: '-20px', textAlign: 'center' }}>
       <Typography variant="h4" gutterBottom style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
         <Button startIcon={<ArrowBackIcon />} color="primary" onClick={handleGoBack}>
           Retour
@@ -61,7 +61,7 @@ function AddTeacher({ onTeacherAdded }) {
         <Typography variant="h4">Ajouter Enseignant</Typography>
       </Typography>
       <Grid container spacing={2} alignItems="center">
-        <Grid item xs={4} sx={{ marginLeft: '10px', marginTop: '-20px' }}>
+        <Grid item xs={4} sx={{ marginLeft: '10px', marginTop: '0px' }}>
           <input
             type="file"
             accept="image/*"
