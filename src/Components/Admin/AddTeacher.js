@@ -6,13 +6,15 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 function AddTeacher({ onTeacherAdded }) {
   const [nom, setNom] = useState('');
   const [prenom, setPrenom] = useState('');
+  const [cin, setCin] = useState('');
+  const [password, setPassword] = useState('');
   const [diplome, setDiplome] = useState('');
   const [institut, setInstitut] = useState('');
   const [numero, setNumero] = useState('');
   const [email, setEmail] = useState('');
   const [dateNaissance, setDateNaissance] = useState('');
   const [adresse, setAdresse] = useState('');
-  const [matiere, setMatiere] = useState('');
+  const [groupes, setGroupes] = useState([]); // Modifier groupes en un tableau pour stocker plusieurs numéros de groupe
   const [role, setRole] = useState('');
   const [chefDepartement, setChefDepartement] = useState('');
   const [photo, setPhoto] = useState(null);
@@ -22,13 +24,15 @@ function AddTeacher({ onTeacherAdded }) {
     const newTeacherInfo = {
       nom,
       prenom,
+      cin,
+      password,
       diplome,
       institut,
       numero,
       email,
       dateNaissance,
       adresse,
-      matiere,
+      groupes,
       role,
       chefDepartement,
       photo
@@ -97,6 +101,27 @@ function AddTeacher({ onTeacherAdded }) {
             size="small"
             value={prenom}
             onChange={(e) => setPrenom(e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={6} sm={3}>
+          <TextField
+            fullWidth
+            label="CIN"
+            variant="outlined"
+            size="small"
+            value={cin}
+            onChange={(e) => setCin(e.target.value)}
+          />
+        </Grid>
+        <Grid item xs={6} sm={3}>
+          <TextField
+            fullWidth
+            label="Mot de passe"
+            type="password"
+            variant="outlined"
+            size="small"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
           />
         </Grid>
         <Grid item xs={12} sm={6}>
@@ -171,16 +196,20 @@ function AddTeacher({ onTeacherAdded }) {
           <TextField
             fullWidth
             select
-            label="Matière"
+            label="Groupes"
             variant="outlined"
             defaultValue=""
             size="small"
-            value={matiere}
-            onChange={(e) => setMatiere(e.target.value)}
+            value={groupes}
+            onChange={(e) => setGroupes(e.target.value)}
+            SelectProps={{
+              multiple: true,
+              renderValue: (selected) => selected.join(', '),
+            }}
           >
-            <MenuItem value="mathematiques">Mathématiques</MenuItem>
-            <MenuItem value="informatique">Informatique</MenuItem>
-            <MenuItem value="physique">Physique</MenuItem>
+            <MenuItem value="groupe1">Groupe 1</MenuItem>
+            <MenuItem value="groupe2">Groupe 2</MenuItem>
+            <MenuItem value="groupe3">Groupe 3</MenuItem>
           </TextField>
         </Grid>
         <Grid item xs={12} sm={6}>

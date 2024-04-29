@@ -9,10 +9,12 @@ import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
 import SchoolIcon from '@mui/icons-material/School'; 
 import EventIcon from '@mui/icons-material/Event';
-import ScheduleIcon from '@mui/icons-material/Schedule'; // Icône pour l'emploi de temps
+import ScheduleIcon from '@mui/icons-material/Schedule'; 
 import LogoutIcon from '@mui/icons-material/Logout';
-import NoteIcon from '@mui/icons-material/Note'; // Nouvelles icônes
-import NewsIcon from '@mui/icons-material/Article'; // Nouvelles icônes
+import NoteIcon from '@mui/icons-material/Note'; 
+import NewsIcon from '@mui/icons-material/Article'; 
+import PostAddIcon from '@mui/icons-material/PostAdd'; 
+
 
 function Sidebar({ onSidebarClick }) {
   const [selectedItem, setSelectedItem] = React.useState('Tableau de bord');
@@ -48,7 +50,7 @@ function Sidebar({ onSidebarClick }) {
      
       <img src={"./logoissat.png"} alt="Logo de l'Université" style={{ width: 100, height: 100, marginBottom: '16px' }} />
       <List>
-        {['Tableau de bord', 'Enseignants', 'Étudiants', 'Calendrier', 'Emploi du temps', 'Notes', 'Actualités', 'Déconnexion'].map((text, index) => (
+        {['Tableau de bord', 'Enseignants', 'Étudiants', 'Calendrier', 'Emploi du temps', 'Notes', 'Actualités', 'Demandes','Déconnexion'].map((text, index) => (
           <ListItem 
             button 
             key={text} 
@@ -60,9 +62,10 @@ function Sidebar({ onSidebarClick }) {
               {text === 'Enseignants' && <PeopleAltIcon />}
               {text === 'Étudiants' && <SchoolIcon />}
               {text === 'Calendrier' && <EventIcon />}
-              {text === 'Emploi du temps' && <ScheduleIcon />} {/* Nouvelle icône pour l'emploi de temps */}
+              {text === 'Emploi du temps' && <ScheduleIcon />} 
               {text === 'Notes' && <NoteIcon />}
               {text === 'Actualités' && <NewsIcon />}
+              {text === 'Demandes' && <PostAddIcon />}
               {text === 'Déconnexion' && <LogoutIcon />}
             </ListItemIcon>
             <ListItemText primary={text} sx={{ color: selectedItem === text ? 'primary.contrastText' : 'inherit' }} />

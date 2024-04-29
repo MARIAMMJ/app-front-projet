@@ -16,6 +16,7 @@ import EmploisPage from './emploi';
 import ActualitesPage from './ActualitesPage';
 import NotesPage from './NotesPage';
 import { useNavigate } from 'react-router-dom';
+import DemandesPage from './DemandesPage';
 
 
 function AdminDashboard() {
@@ -85,6 +86,7 @@ function AdminDashboard() {
             {currentPage === 'Emploi du temps' && <EmploisPage />}
             {currentPage === 'Notes' && <NotesPage />}
             {currentPage === 'Actualités' && <ActualitesPage />}
+            {currentPage === 'Demandes' && <DemandesPage />}
 
 
           </Box>

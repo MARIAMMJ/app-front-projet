@@ -151,9 +151,12 @@ function TeacherDashboard() {
 
   return (
     <div style={{ marginTop: '20px', flexGrow: 1, p: 3, marginLeft: '240px', position: 'relative' }}>
-      <Button variant="contained" color="primary" onClick={handleAddTeacherClick} style={{ position: 'absolute', top: 0, right: 0, margin: '20px' }}>
-        Ajouter un enseignant
-      </Button>
+      {isAddingTeacher && <AddTeacher onCancel={handleCancelAddTeacher} />}
+      {!isAddingTeacher && (
+        <Button variant="contained" color="primary" onClick={handleAddTeacherClick} style={{ position: 'absolute', top: 0, right: 0, margin: '20px' }}>
+          Ajouter un enseignant
+        </Button>
+      )}
       {!isAddingTeacher && (
         <TextField
           select
@@ -170,9 +173,7 @@ function TeacherDashboard() {
           ))}
         </TextField>
       )}
-      {isAddingTeacher ? (
-        <AddTeacher onCancel={handleCancelAddTeacher} />
-      ) : (
+      {!isAddingTeacher && (
         <Grid container spacing={2}>
           {filteredTeachers.map((teacher) => (
             <Grid item xs={12} sm={6} md={4} key={teacher.id}>
